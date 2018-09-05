@@ -1,0 +1,65 @@
+.Reviewer__Header {
+  background-color: #008;
+  color: #fff;
+  text-align: center;
+  font-size: 5vh;
+  padding: 3vh;
+}
+
+.Reviewer__Header--inverted {
+  background-color: #fff;
+  color: #008;
+  text-align: center;
+  font-size: 5vh;
+  padding: 3vh;
+}
+
+.Reviewer__Button {
+  background-color: #008;
+  color: #fff;
+  font-size: 4vh;
+  padding: 3vh;
+  box-shadow: 0 0 0.1em 0.1em #000a;
+}
+
+.Reviewer__CardFrontContainer {
+  color: #008;
+  text-align: center;
+  font-size: 10em;
+  height: 88vh;
+  line-height: 88vh;
+}
+
+.Reviewer__CardFront {
+  line-height: normal;
+  display: inline-block;
+}
+
+.Reviewer__CardBackContainer {
+  color: #008;
+  text-align: center;
+  font-size: 5vh;
+  height: 88vh;
+  line-height: 88vh;
+}
+
+.Reviewer__CardBack {
+  line-height: normal;
+  display: inline-block;
+}
+
+.Reviewer__Overlay--correct {
+  background-color: #0a0a;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+}
+
+.Reviewer__Overlay--incorrect {
+  background-color: #a00a;
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
+  top: 12vh;
+}

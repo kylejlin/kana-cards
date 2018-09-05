@@ -1,0 +1,14 @@
+.LessonSelector__Header {
+  color: #008;
+  text-align: center;
+  font-size: 5vh;
+  padding: 3vh;
+}
+
+.LessonSelector__Lesson {
+  background-color: #008;
+  color: #fff;
+  font-size: 4vh;
+  padding: 3vh;
+  box-shadow: 0 0 0.1em 0.1em #000a;
+}
