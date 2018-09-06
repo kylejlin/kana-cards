@@ -21,12 +21,12 @@ export default [
   },
   {
     characters: '听音乐',
-    pinyin: 'tīn yìn yué',
+    pinyin: 'tīn yīn yué',
     meaning: 'listen to music',
   },
   {
     characters: '音乐迷',
-    pinyin: 'yìn yuè mí',
+    pinyin: 'yīn yuè mí',
     meaning: 'music fan',
   },
   {
@@ -73,5 +73,55 @@ export default [
     characters: '找朋友',
     pinyin: 'zhǎo péng yǒu',
     meaning: 'find friends',
+  },
+  {
+    characters: '爱玩儿',
+    pinyin: 'ài wánr',
+    meaning: 'love to play',
+  },
+  {
+    characters: '最...了',
+    pinyin: 'zuì...le',
+    meaning: 'most',
+  },
+  {
+    characters: '杂志',
+    pinyin: 'zá zhì',
+    meaning: 'magazine',
+  },
+  {
+    characters: '可以',
+    pinyin: 'kě yǐ',
+    meaning: 'can, may',
+  },
+  {
+    characters: '借',
+    pinyin: 'jiè',
+    meaning: 'borrow',
+  },
+  {
+    characters: '还给',
+    pinyin: 'huán gěi',
+    meaning: 'return',
+  },
+  {
+    characters: '那期的',
+    pinyin: 'nà qí de',
+    meaning: 'which issue',
+  },
+  {
+    characters: '有意思',
+    pinyin: 'yǒu yì si',
+    meaning: 'interesting',
+  },
+  {
+    characters: '还是',
+    pinyin: 'hái shì',
+    meaning: 'or',
+  },
+  {
+    characters: '都',
+    pinyin: 'dōu',
+    meaning: 'all',
   },
 ];
