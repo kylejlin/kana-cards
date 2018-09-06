@@ -1,5 +1,6 @@
 import React from 'react';
 import lessons from './lessons/index';
+import randomlySort from './randomlySort';
 import LessonSelector from './LessonSelector';
 import Reviewer from './Reviewer';
 
@@ -61,7 +62,7 @@ class Flash407 extends React.Component {
   onLessonSelect(lessonId) {
     this.setState({
       lessonId,
-      remaining: lessons[lessonId],
+      remaining: randomlySort(lessons[lessonId]),
       isRevealed: false,
       normalizedDeltaY: 0,
       repractice: [],
@@ -126,7 +127,7 @@ class Flash407 extends React.Component {
         };
       }
       return {
-        remaining: prevState.repractice,
+        remaining: randomlySort(prevState.repractice),
         repractice: [],
         isRevealed: false,
       };
@@ -143,7 +144,8 @@ class Flash407 extends React.Component {
         };
       }
       return {
-        remaining: prevState.repractice.concat([prevState.remaining[0]]),
+        remaining: randomlySort(prevState.repractice
+          .concat([prevState.remaining[0]])),
         repractice: [],
         isRevealed: false,
       };
