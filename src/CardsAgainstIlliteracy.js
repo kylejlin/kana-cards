@@ -6,7 +6,7 @@ import Reviewer from './Reviewer';
 
 const SWIPE_SIZE = window.innerHeight * 0.40;
 
-class Flash407 extends React.Component {
+class CardsAgainstIlliteracy extends React.Component {
   constructor() {
     super();
 
@@ -163,4 +163,4 @@ class Flash407 extends React.Component {
   }
 }
 
-export default Flash407;
+export default CardsAgainstIlliteracy;

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Flash407 from './Flash407';
+import CardsAgainstIlliteracy from './CardsAgainstIlliteracy';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Flash407 />, document.getElementById('root'));
+ReactDOM.render(<CardsAgainstIlliteracy />, document.getElementById('root'));
 registerServiceWorker();
