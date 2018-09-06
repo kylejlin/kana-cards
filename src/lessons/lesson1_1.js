@@ -105,8 +105,8 @@ export default [
     meaning: 'return',
   },
   {
-    characters: '那期的',
-    pinyin: 'nà qí de',
+    characters: '哪期的',
+    pinyin: 'nǎ qí de',
     meaning: 'which issue',
   },
   {
