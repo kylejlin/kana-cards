@@ -11,7 +11,7 @@ export default [
   },
   {
     characters: '一下儿',
-    pinyin: 'yī shàr',
+    pinyin: 'yī xiàr',
     meaning: 'for a short while',
   },
   {
@@ -21,7 +21,7 @@ export default [
   },
   {
     characters: '听音乐',
-    pinyin: 'tīn yīn yué',
+    pinyin: 'tīn yīn yuè',
     meaning: 'listen to music',
   },
   {
