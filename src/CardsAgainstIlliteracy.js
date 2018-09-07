@@ -4,7 +4,7 @@ import randomlySort from './randomlySort';
 import LessonSelector from './LessonSelector';
 import Reviewer from './Reviewer';
 
-const SWIPE_SIZE = window.innerHeight * 0.40;
+const SWIPE_SIZE = window.innerHeight * 0.30;
 
 const SUPPORTS_TOUCH = 'ontouchstart' in window;
 
