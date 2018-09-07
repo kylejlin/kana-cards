@@ -6,6 +6,8 @@ import Reviewer from './Reviewer';
 
 const SWIPE_SIZE = window.innerHeight * 0.40;
 
+const SUPPORTS_TOUCH = 'ontouchstart' in window;
+
 class CardsAgainstIlliteracy extends React.Component {
   constructor() {
     super();
@@ -20,6 +22,7 @@ class CardsAgainstIlliteracy extends React.Component {
       'onCardTouchStart',
       'onCardTouchMove',
       'onCardTouchEnd',
+      'onKeyUp',
       'onCardCorrect',
       'onCardIncorrect',
       'onLessonRestart',
@@ -27,6 +30,18 @@ class CardsAgainstIlliteracy extends React.Component {
     ].forEach((methodName) => {
       this[methodName] = this[methodName].bind(this);
     });
+  }
+
+  componentDidMount() {
+    if (!SUPPORTS_TOUCH) {
+      window.addEventListener('keyup', this.onKeyUp);
+    }
+  }
+
+  componentWillUnmount() {
+    if (!SUPPORTS_TOUCH) {
+      window.removeEventListener('keyup', this.onKeyUp);
+    }
   }
 
   render() {
@@ -108,6 +123,16 @@ class CardsAgainstIlliteracy extends React.Component {
       this.onCardIncorrect();
     } else if (this.state.normalizedDeltaY === -1) {
       this.onCardCorrect();
+    }
+  }
+
+  onKeyUp({ key }) {
+    if (this.state.lessonId !== null && this.state.isRevealed) {
+      if (key === 'ArrowUp' || key === 'Up') {
+        this.onCardCorrect();
+      } else if (key === 'ArrowDown' || key === 'Down') {
+        this.onCardIncorrect();
+      }
     }
   }
 
