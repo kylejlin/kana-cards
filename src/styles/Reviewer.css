@@ -50,7 +50,7 @@
 
 .Reviewer__Overlay--correct {
   background-color: #0a0a;
-  top: 12vh;
+  top: 11.5vh;
   height: 88vh;
   position: absolute;
   z-index: 1;
@@ -58,7 +58,7 @@
 
 .Reviewer__Overlay--incorrect {
   background-color: #a00a;
-  top: 12vh;
+  top: 11.5vh;
   height: 88vh;
   width: 100vw;
   position: absolute;

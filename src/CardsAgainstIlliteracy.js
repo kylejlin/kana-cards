@@ -6,6 +6,9 @@ import Reviewer from './Reviewer';
 
 const SWIPE_SIZE = window.innerWidth * 0.40;
 
+const SIMULATED_SWIPE_DURATION = 0.15e3;
+const SIMULATED_SWIPE_PAUSE_FACTOR = 0.2;
+
 const SUPPORTS_TOUCH = 'ontouchstart' in window;
 
 class CardsAgainstIlliteracy extends React.Component {
@@ -129,9 +132,9 @@ class CardsAgainstIlliteracy extends React.Component {
   onKeyUp({ key }) {
     if (this.state.lessonId !== null && this.state.isRevealed) {
       if (key === 'ArrowRight' || key === 'Right') {
-        this.onCardCorrect();
+        this.simulateRightSwipe();
       } else if (key === 'ArrowLeft' || key === 'Left') {
-        this.onCardIncorrect();
+        this.simulateLeftSwipe();
       }
     }
   }
@@ -185,6 +188,40 @@ class CardsAgainstIlliteracy extends React.Component {
     this.setState({
       lessonId: null,
     });
+  }
+
+  simulateRightSwipe() {
+    const start = Date.now();
+    const render = () => {
+      const now = Date.now();
+      const completionFactor = (now - start) / SIMULATED_SWIPE_DURATION;
+      if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
+        requestAnimationFrame(render);
+      } else {
+        this.onCardCorrect();
+      }
+      this.setState({
+        normalizedDeltaX: completionFactor,
+      });
+    };
+    render();
+  }
+
+  simulateLeftSwipe() {
+    const start = Date.now();
+    const render = () => {
+      const now = Date.now();
+      const completionFactor = (now - start) / SIMULATED_SWIPE_DURATION;
+      if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
+        requestAnimationFrame(render);
+      } else {
+        this.onCardIncorrect();
+      }
+      this.setState({
+        normalizedDeltaX: -completionFactor,
+      });
+    };
+    render();
   }
 }
 
