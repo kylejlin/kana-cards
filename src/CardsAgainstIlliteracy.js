@@ -4,7 +4,7 @@ import randomlySort from './randomlySort';
 import LessonSelector from './LessonSelector';
 import Reviewer from './Reviewer';
 
-const SWIPE_SIZE = window.innerHeight * 0.30;
+const SWIPE_SIZE = window.innerWidth * 0.40;
 
 const SUPPORTS_TOUCH = 'ontouchstart' in window;
 
@@ -61,7 +61,7 @@ class CardsAgainstIlliteracy extends React.Component {
           lessonId={lessonId}
           remaining={remaining}
           isRevealed={isRevealed}
-          normalizedDeltaY={this.state.normalizedDeltaY}
+          normalizedDeltaX={this.state.normalizedDeltaX}
 
           onReveal={this.onCardReveal}
           onTouchStart={this.onCardTouchStart}
@@ -79,7 +79,7 @@ class CardsAgainstIlliteracy extends React.Component {
       lessonId,
       remaining: randomlySort(lessons[lessonId]),
       isRevealed: false,
-      normalizedDeltaY: 0,
+      normalizedDeltaX: 0,
       repractice: [],
     });
   }
@@ -91,12 +91,12 @@ class CardsAgainstIlliteracy extends React.Component {
 
     const touch = {
       id: changedTouches[0].identifier,
-      y: changedTouches[0].clientY,
+      x: changedTouches[0].clientX,
     };
 
     this.setState({
       startingTouch: touch,
-      normalizedDeltaY: 0,
+      normalizedDeltaX: 0,
     });
   }
 
@@ -107,21 +107,21 @@ class CardsAgainstIlliteracy extends React.Component {
     if (!newTouch) {
       return;
     }
-    const deltaY = newTouch.clientY - this.state.startingTouch.y;
-    const normalizedDeltaY = Math.max(-1, Math.min(1, deltaY / SWIPE_SIZE));
+    const deltaX = newTouch.clientX - this.state.startingTouch.x;
+    const normalizedDeltaX = Math.max(-1, Math.min(1, deltaX / SWIPE_SIZE));
     this.setState({
-      normalizedDeltaY,
+      normalizedDeltaX,
     });
   }
 
   onCardTouchEnd() {
     this.setState({
       startingTouch: null,
-      normalizedDeltaY: 0,
+      normalizedDeltaX: 0,
     });
-    if (this.state.normalizedDeltaY === 1) {
+    if (this.state.normalizedDeltaX === -1) {
       this.onCardIncorrect();
-    } else if (this.state.normalizedDeltaY === -1) {
+    } else if (this.state.normalizedDeltaX === 1) {
       this.onCardCorrect();
     }
   }
@@ -139,7 +139,7 @@ class CardsAgainstIlliteracy extends React.Component {
   onCardReveal() {
     this.setState({
       isRevealed: true,
-      normalizedDeltaY: 0,
+      normalizedDeltaX: 0,
     });
   }
 

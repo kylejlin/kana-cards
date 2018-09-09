@@ -5,7 +5,7 @@ const Reviewer = ({
   lessonId,
   remaining,
   isRevealed,
-  normalizedDeltaY,
+  normalizedDeltaX,
 
   onReveal,
   onTouchStart,
@@ -66,12 +66,12 @@ const Reviewer = ({
       </div>
 
       {
-        normalizedDeltaY < 0
+        normalizedDeltaX > 0
           ? (
             <div
               className="Reviewer__Overlay--correct"
               style={{
-                top: 12 + (1 + normalizedDeltaY) * 88 + 'vh',
+                width: normalizedDeltaX * 100 + 'vw',
               }}
             />
           )
@@ -79,7 +79,8 @@ const Reviewer = ({
             <div
               className="Reviewer__Overlay--incorrect"
               style={{
-                height: normalizedDeltaY * 88 + 'vh',
+                left: (1 + normalizedDeltaX) * 100 + 'vw',
+                width: -normalizedDeltaX * 100 + 'vw',
               }}
             />
           )

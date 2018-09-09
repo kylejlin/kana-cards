@@ -50,16 +50,17 @@
 
 .Reviewer__Overlay--correct {
   background-color: #0a0a;
-  width: 100vw;
-  height: 100vh;
+  top: 12vh;
+  height: 88vh;
   position: absolute;
   z-index: 1;
 }
 
 .Reviewer__Overlay--incorrect {
   background-color: #a00a;
+  top: 12vh;
+  height: 88vh;
   width: 100vw;
   position: absolute;
   z-index: 1;
-  top: 12vh;
 }
