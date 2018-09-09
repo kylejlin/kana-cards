@@ -128,9 +128,9 @@ class CardsAgainstIlliteracy extends React.Component {
 
   onKeyUp({ key }) {
     if (this.state.lessonId !== null && this.state.isRevealed) {
-      if (key === 'ArrowUp' || key === 'Up') {
+      if (key === 'ArrowRight' || key === 'Right') {
         this.onCardCorrect();
-      } else if (key === 'ArrowDown' || key === 'Down') {
+      } else if (key === 'ArrowLeft' || key === 'Left') {
         this.onCardIncorrect();
       }
     }
