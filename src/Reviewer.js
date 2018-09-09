@@ -38,8 +38,8 @@ const Reviewer = ({
           {lessonId}
         </div>
 
-        <div className="Reviewer__CardFrontContainer">
-          <div className="Reviewer__CardFront" onClick={onReveal}>
+        <div className="Reviewer__CardFrontContainer" onClick={onReveal}>
+          <div className="Reviewer__CardFront">
             {remaining[0].characters}
           </div>
         </div>
