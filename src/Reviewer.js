@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/Reviewer.css';
+import Header from './Header';
 
 const Reviewer = ({
   lessonId,
@@ -17,9 +18,7 @@ const Reviewer = ({
   if (remaining.length === 0) {
     return (
       <div className="Reviewer">
-        <div className="Reviewer__Header--inverted">
-          {lessonId}
-        </div>
+        <Header background="white">{lessonId}</Header>
 
         <div className="Reviewer__Button" onClick={onRestart}>
           Restart
@@ -34,9 +33,7 @@ const Reviewer = ({
   if (!isRevealed) {
     return (
       <div className="Reviewer">
-        <div className="Reviewer__Header">
-          {lessonId}
-        </div>
+        <Header background="blue">{lessonId}</Header>
 
         <div className="Reviewer__CardFrontContainer" onClick={onReveal}>
           <div className="Reviewer__CardFront">
@@ -49,9 +46,7 @@ const Reviewer = ({
 
   return (
     <div className="Reviewer">
-      <div className="Reviewer__Header">
-        {lessonId}
-      </div>
+      <Header background="blue">{lessonId}</Header>
 
       <div
         className="Reviewer__CardBackContainer"

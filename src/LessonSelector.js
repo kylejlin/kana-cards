@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/LessonSelector.css';
+import Header from './Header';
 
 const LessonSelector = ({
   lessons,
@@ -7,9 +8,7 @@ const LessonSelector = ({
   onSelect,
 }) => (
   <div className="LessonSelector">
-    <div className="LessonSelector__Header">
-      Lessons
-    </div>
+    <Header background="white">Lessons</Header>
 
     <div className="LessonSelector__LessonList">
       {Object.keys(lessons).map(lessonId => (
