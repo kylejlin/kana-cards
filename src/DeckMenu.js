@@ -1,6 +1,6 @@
 import React from 'react';
-import './styles/DeckMenu.css';
 import Header from './Header';
+import LadderListItem from './LadderListItem';
 
 export default ({
   decks,
@@ -10,16 +10,13 @@ export default ({
   <div className="DeckMenu">
     <Header background="white">Lessons</Header>
 
-    <div className="DeckMenu__LessonList">
-      {decks.map(deck => (
-        <div
-          className="DeckMenu__Lesson"
-          key={deck.name}
-          onClick={() => onSelect(deck)}
-        >
-          {deck.name}
-        </div>
-      ))}
-    </div>
+    {decks.map(deck => (
+      <LadderListItem
+        key={deck.name}
+        onClick={() => onSelect(deck)}
+      >
+        {deck.name}
+      </LadderListItem>
+    ))}
   </div>
 );

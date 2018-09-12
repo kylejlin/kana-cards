@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/ReadingDrill.css';
 import Header from './Header';
+import LadderListItem from './LadderListItem';
 
 const ReadingDrill = ({
   deckName,
@@ -20,12 +21,8 @@ const ReadingDrill = ({
       <div className="ReadingDrill">
         <Header background="white">{deckName}</Header>
 
-        <div className="ReadingDrill__Button" onClick={onRestart}>
-          Restart
-        </div>
-        <div className="ReadingDrill__Button" onClick={onHome}>
-          Home
-        </div>
+        <LadderListItem onClick={onRestart}>Restart</LadderListItem>
+        <LadderListItem onClick={onHome}>Home</LadderListItem>
       </div>
     );
   }
