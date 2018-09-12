@@ -1,8 +1,8 @@
 import React from 'react';
-import lessons from './lessons/index';
+import decks from './decks/index';
 import randomlySort from './randomlySort';
-import LessonSelector from './LessonSelector';
-import Reviewer from './Reviewer';
+import DeckMenu from './DeckMenu';
+import ReadingDrill from './ReadingDrill';
 
 const SWIPE_SIZE = window.innerWidth * 0.40;
 
@@ -16,11 +16,11 @@ class CardsAgainstIlliteracy extends React.Component {
     super();
 
     this.state = {
-      lessonId: null,
+      type: 'DECK_MENU',
     };
 
     [
-      'onLessonSelect',
+      'onDeckSelect',
       'onCardReveal',
       'onCardTouchStart',
       'onCardTouchMove',
@@ -48,23 +48,28 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   render() {
-    const { lessonId } = this.state;
-    if (lessonId === null) {
+    const { type } = this.state;
+    if (type === 'DECK_MENU') {
       return (
-        <LessonSelector
-          lessons={lessons}
+        <DeckMenu
+          decks={decks}
 
-          onSelect={this.onLessonSelect}
+          onSelect={this.onDeckSelect}
         />
       );
-    } else {
-      const { remaining, isRevealed } = this.state;
+    } else if (type === 'READING_DRILL') {
+      const {
+        deckName,
+        remainingCards,
+        isTopCardRevealed,
+        normalizedDeltaX,
+      } = this.state;
       return (
-        <Reviewer
-          lessonId={lessonId}
-          remaining={remaining}
-          isRevealed={isRevealed}
-          normalizedDeltaX={this.state.normalizedDeltaX}
+        <ReadingDrill
+          deckName={deckName}
+          remainingCards={remainingCards}
+          isTopCardRevealed={isTopCardRevealed}
+          normalizedDeltaX={normalizedDeltaX}
 
           onReveal={this.onCardReveal}
           onTouchStart={this.onCardTouchStart}
@@ -77,18 +82,21 @@ class CardsAgainstIlliteracy extends React.Component {
     }
   }
 
-  onLessonSelect(lessonId) {
+  onDeckSelect(deck) {
+    const { name, cards } = deck;
+
     this.setState({
-      lessonId,
-      remaining: randomlySort(lessons[lessonId]),
-      isRevealed: false,
+      type: 'READING_DRILL',
+      deckName: name,
+      remainingCards: randomlySort(cards),
+      isTopCardRevealed: false,
       normalizedDeltaX: 0,
-      repractice: [],
+      cardsToRepractice: [],
     });
   }
 
   onCardTouchStart({ changedTouches }) {
-    if (!this.state.isRevealed) {
+    if (!this.state.isTopCardRevealed) {
       return;
     }
 
@@ -130,7 +138,7 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onKeyUp({ key }) {
-    if (this.state.lessonId !== null && this.state.isRevealed) {
+    if (this.state.lessonId !== null && this.state.isTopCardRevealed) {
       if (key === 'ArrowRight' || key === 'Right') {
         this.simulateRightSwipe();
       } else if (key === 'ArrowLeft' || key === 'Left') {
@@ -141,52 +149,54 @@ class CardsAgainstIlliteracy extends React.Component {
 
   onCardReveal() {
     this.setState({
-      isRevealed: true,
+      isTopCardRevealed: true,
       normalizedDeltaX: 0,
     });
   }
 
   onCardCorrect() {
     this.setState(prevState => {
-      if (prevState.remaining.length > 1) {
+      if (prevState.remainingCards.length > 1) {
         return {
-          remaining: prevState.remaining.slice(1),
-          isRevealed: false,
+          remainingCards: prevState.remainingCards.slice(1),
+          isTopCardRevealed: false,
         };
       }
       return {
-        remaining: randomlySort(prevState.repractice),
-        repractice: [],
-        isRevealed: false,
+        remainingCards: randomlySort(prevState.cardsToRepractice),
+        cardsToRepractice: [],
+        isTopCardRevealed: false,
       };
     });
   }
 
   onCardIncorrect() {
     this.setState(prevState => {
-      if (prevState.remaining.length > 1) {
+      if (prevState.remainingCards.length > 1) {
         return {
-          remaining: prevState.remaining.slice(1),
-          repractice: prevState.repractice.concat([prevState.remaining[0]]),
-          isRevealed: false,
+          remainingCards: prevState.remainingCards.slice(1),
+          cardsToRepractice: prevState.cardsToRepractice.concat([
+            prevState.remainingCards[0]
+          ]),
+          isTopCardRevealed: false,
         };
       }
       return {
-        remaining: randomlySort(prevState.repractice
-          .concat([prevState.remaining[0]])),
-        repractice: [],
-        isRevealed: false,
+        remainingCards: randomlySort(prevState.cardsToRepractice
+          .concat([prevState.remainingCards[0]])),
+        cardsToRepractice: [],
+        isTopCardRevealed: false,
       };
     });
   }
 
   onLessonRestart() {
-    this.onLessonSelect(this.state.lessonId);
+    this.onDeckSelect(decks.find(d => d.name === this.state.deckName));
   }
 
   onHome() {
     this.setState({
-      lessonId: null,
+      type: 'DECK_MENU',
     });
   }
 

@@ -1,4 +1,4 @@
-.Reviewer__Button {
+.ReadingDrill__Button {
   background-color: #008;
   color: #fff;
   font-size: 4vh;
@@ -6,7 +6,7 @@
   box-shadow: 0 0 0.1em 0.1em #000a;
 }
 
-.Reviewer__CardFrontContainer {
+.ReadingDrill__CardFrontContainer {
   color: #008;
   text-align: center;
   font-size: 10em;
@@ -14,12 +14,12 @@
   line-height: 88vh;
 }
 
-.Reviewer__CardFront {
+.ReadingDrill__CardFront {
   line-height: normal;
   display: inline-block;
 }
 
-.Reviewer__CardBackContainer {
+.ReadingDrill__CardBackContainer {
   color: #008;
   text-align: center;
   font-size: 5vh;
@@ -27,12 +27,12 @@
   line-height: 88vh;
 }
 
-.Reviewer__CardBack {
+.ReadingDrill__CardBack {
   line-height: normal;
   display: inline-block;
 }
 
-.Reviewer__Overlay--correct {
+.ReadingDrill__Overlay--correct {
   background-color: #0a0a;
   top: 11.5vh;
   height: 88vh;
@@ -40,7 +40,7 @@
   z-index: 1;
 }
 
-.Reviewer__Overlay--incorrect {
+.ReadingDrill__Overlay--incorrect {
   background-color: #a00a;
   top: 11.5vh;
   height: 88vh;
