@@ -2,6 +2,7 @@ import React from 'react';
 import decks from './decks/index';
 import randomlySort from './randomlySort';
 import DeckMenu from './DeckMenu';
+import DrillMenu from './DrillMenu';
 import ReadingDrill from './ReadingDrill';
 
 const SWIPE_SIZE = window.innerWidth * 0.40;
@@ -21,6 +22,7 @@ class CardsAgainstIlliteracy extends React.Component {
 
     [
       'onDeckSelect',
+      'onDrillSelect',
       'onCardReveal',
       'onCardTouchStart',
       'onCardTouchMove',
@@ -57,6 +59,16 @@ class CardsAgainstIlliteracy extends React.Component {
           onSelect={this.onDeckSelect}
         />
       );
+    } else if (type === 'DRILL_MENU') {
+      const { name } = this.state.deck;
+      return (
+        <DrillMenu
+          deckName={name}
+
+          onDrillSelect={this.onDrillSelect}
+          onHome={this.onHome}
+        />
+      );
     } else if (type === 'READING_DRILL') {
       const {
         deckName,
@@ -86,13 +98,23 @@ class CardsAgainstIlliteracy extends React.Component {
     const { name, cards } = deck;
 
     this.setState({
-      type: 'READING_DRILL',
-      deckName: name,
-      remainingCards: randomlySort(cards),
-      isTopCardRevealed: false,
-      normalizedDeltaX: 0,
-      cardsToRepractice: [],
+      type: 'DRILL_MENU',
+      deck,
     });
+  }
+
+  onDrillSelect(drill) {
+    if (drill === 'READING_DRILL') {
+      const { name, cards } = this.state.deck;
+      this.setState({
+        type: 'READING_DRILL',
+        deckName: name,
+        remainingCards: randomlySort(cards),
+        isTopCardRevealed: false,
+        normalizedDeltaX: 0,
+        cardsToRepractice: [],
+      });
+    }
   }
 
   onCardTouchStart({ changedTouches }) {
@@ -191,7 +213,18 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onLessonRestart() {
-    this.onDeckSelect(decks.find(d => d.name === this.state.deckName));
+    if (this.state.type === 'READING_DRILL') {
+      const deck = decks.find(d => d.name === this.state.deckName);
+      const { name, cards } = deck;
+      this.setState({
+        type: 'READING_DRILL',
+        deckName: name,
+        remainingCards: randomlySort(cards),
+        isTopCardRevealed: false,
+        normalizedDeltaX: 0,
+        cardsToRepractice: [],
+      });
+    }
   }
 
   onHome() {
