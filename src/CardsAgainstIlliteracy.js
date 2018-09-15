@@ -25,9 +25,9 @@ class CardsAgainstIlliteracy extends React.Component {
       'onDeckSelect',
       'onDrillSelect',
       'onCardReveal',
-      'onCardTouchStart',
-      'onCardTouchMove',
-      'onCardTouchEnd',
+      'onAffirmationSwipeStart',
+      'onAffirmationSwipeMove',
+      'onAffirmationSwipeEnd',
       'onKeyUp',
       'onCardCorrect',
       'onCardIncorrect',
@@ -97,9 +97,9 @@ class CardsAgainstIlliteracy extends React.Component {
           normalizedDeltaX={normalizedDeltaX}
 
           onReveal={this.onCardReveal}
-          onTouchStart={this.onCardTouchStart}
-          onTouchMove={this.onCardTouchMove}
-          onTouchEnd={this.onCardTouchEnd}
+          onAffirmationSwipeStart={this.onAffirmationSwipeStart}
+          onAffirmationSwipeMove={this.onAffirmationSwipeMove}
+          onAffirmationSwipeEnd={this.onAffirmationSwipeEnd}
         />
       );
     }
@@ -126,7 +126,7 @@ class CardsAgainstIlliteracy extends React.Component {
     }
   }
 
-  onCardTouchStart({ changedTouches }) {
+  onAffirmationSwipeStart({ changedTouches }) {
     if (!this.state.isTopCardRevealed) {
       return;
     }
@@ -142,7 +142,7 @@ class CardsAgainstIlliteracy extends React.Component {
     });
   }
 
-  onCardTouchMove({ changedTouches }) {
+  onAffirmationSwipeMove({ changedTouches }) {
     const { id } = this.state.startingTouch;
     const newTouch = Array.from(changedTouches)
       .find(t => t.identifier === id);
@@ -156,7 +156,7 @@ class CardsAgainstIlliteracy extends React.Component {
     });
   }
 
-  onCardTouchEnd() {
+  onAffirmationSwipeEnd() {
     this.setState({
       startingTouch: null,
       normalizedDeltaX: 0,

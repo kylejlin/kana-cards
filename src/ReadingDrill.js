@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/ReadingDrill.css';
 import Header from './Header';
+import AffirmationSwipeIndicator from './AffirmationSwipeIndicator';
 
 const ReadingDrill = ({
   deckName,
@@ -9,9 +10,9 @@ const ReadingDrill = ({
   normalizedDeltaX,
 
   onReveal,
-  onTouchStart,
-  onTouchMove,
-  onTouchEnd,
+  onAffirmationSwipeStart,
+  onAffirmationSwipeMove,
+  onAffirmationSwipeEnd,
 }) => {
   if (!isTopCardRevealed) {
     return [
@@ -30,9 +31,9 @@ const ReadingDrill = ({
 
     <div
       className="ReadingDrill__CardBackContainer"
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
+      onTouchStart={onAffirmationSwipeStart}
+      onTouchMove={onAffirmationSwipeMove}
+      onTouchEnd={onAffirmationSwipeEnd}
     >
       <div className="ReadingDrill__CardBack">
         <div>{remainingCards[0].pinyin}</div>
@@ -40,26 +41,7 @@ const ReadingDrill = ({
       </div>
     </div>,
 
-    (
-      normalizedDeltaX > 0
-        ? (
-          <div
-            className="ReadingDrill__Overlay--correct"
-            style={{
-              width: normalizedDeltaX * 100 + 'vw',
-            }}
-          />
-        )
-        : (
-          <div
-            className="ReadingDrill__Overlay--incorrect"
-            style={{
-              left: (1 + normalizedDeltaX) * 100 + 'vw',
-              width: -normalizedDeltaX * 100 + 'vw',
-            }}
-          />
-        )
-    ),
+    <AffirmationSwipeIndicator normalizedDeltaX={normalizedDeltaX} />,
   ];
 };
 

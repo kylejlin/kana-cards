@@ -1,0 +1,16 @@
+.AffirmationSwipeIndicator--correct {
+  background-color: #0a0a;
+  top: 11.5vh;
+  height: 88vh;
+  position: absolute;
+  z-index: 1;
+}
+
+.AffirmationSwipeIndicator--incorrect {
+  background-color: #a00a;
+  top: 11.5vh;
+  height: 88vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
+}
