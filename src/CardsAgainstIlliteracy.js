@@ -31,7 +31,7 @@ class CardsAgainstIlliteracy extends React.Component {
       'onKeyUp',
       'onCardCorrect',
       'onCardIncorrect',
-      'onLessonRestart',
+      'onDrillRestart',
       'onHome',
     ].forEach((methodName) => {
       this[methodName] = this[methodName].bind(this);
@@ -81,7 +81,7 @@ class CardsAgainstIlliteracy extends React.Component {
       if (remainingCards.length === 0) {
         return (
           <PostDrillMenu
-            onRestart={this.onLessonRestart}
+            onRestart={this.onDrillRestart}
             onHome={this.onHome}
           />
         );
@@ -219,7 +219,7 @@ class CardsAgainstIlliteracy extends React.Component {
     });
   }
 
-  onLessonRestart() {
+  onDrillRestart() {
     if (this.state.type === 'READING_DRILL') {
       const deck = decks.find(d => d.name === this.state.deckName);
       const { name, cards } = deck;
