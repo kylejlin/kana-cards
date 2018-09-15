@@ -4,6 +4,7 @@ import randomlySort from './randomlySort';
 import DeckMenu from './DeckMenu';
 import DrillMenu from './DrillMenu';
 import ReadingDrill from './ReadingDrill';
+import PostDrillMenu from './PostDrillMenu';
 
 const SWIPE_SIZE = window.innerWidth * 0.40;
 
@@ -76,6 +77,16 @@ class CardsAgainstIlliteracy extends React.Component {
         isTopCardRevealed,
         normalizedDeltaX,
       } = this.state;
+
+      if (remainingCards.length === 0) {
+        return (
+          <PostDrillMenu
+            onRestart={this.onLessonRestart}
+            onHome={this.onHome}
+          />
+        );
+      }
+
       return (
         <ReadingDrill
           deckName={deckName}
@@ -87,16 +98,12 @@ class CardsAgainstIlliteracy extends React.Component {
           onTouchStart={this.onCardTouchStart}
           onTouchMove={this.onCardTouchMove}
           onTouchEnd={this.onCardTouchEnd}
-          onRestart={this.onLessonRestart}
-          onHome={this.onHome}
         />
       );
     }
   }
 
   onDeckSelect(deck) {
-    const { name, cards } = deck;
-
     this.setState({
       type: 'DRILL_MENU',
       deck,
