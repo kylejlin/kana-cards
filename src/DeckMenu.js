@@ -6,17 +6,17 @@ export default ({
   decks,
 
   onSelect,
-}) => (
-  <div className="DeckMenu">
-    <Header background="white">Lessons</Header>
+}) => [
+  <Header background="white">Lessons</Header>,
 
-    {decks.map(deck => (
+  (
+    decks.map(deck => (
       <LadderListItem
         key={deck.name}
         onClick={() => onSelect(deck)}
       >
         {deck.name}
       </LadderListItem>
-    ))}
-  </div>
-);
+    ))
+  ),
+];
