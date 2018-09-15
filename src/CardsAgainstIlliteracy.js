@@ -70,6 +70,17 @@ class CardsAgainstIlliteracy extends React.Component {
           onHome={this.onHome}
         />
       );
+    } else if (
+      ['READING_DRILL'].includes(type)
+      && this.state.remainingCards.length === 0
+    ) {
+      return (
+        <PostDrillMenu
+          deckName={this.state.deckName}
+          onRestart={this.onDrillRestart}
+          onHome={this.onHome}
+        />
+      );
     } else if (type === 'READING_DRILL') {
       const {
         deckName,
@@ -77,15 +88,6 @@ class CardsAgainstIlliteracy extends React.Component {
         isTopCardRevealed,
         normalizedDeltaX,
       } = this.state;
-
-      if (remainingCards.length === 0) {
-        return (
-          <PostDrillMenu
-            onRestart={this.onDrillRestart}
-            onHome={this.onHome}
-          />
-        );
-      }
 
       return (
         <ReadingDrill
