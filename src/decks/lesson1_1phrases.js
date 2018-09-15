@@ -3,32 +3,32 @@ export default {
   cards: [
     {
       characters: '喜欢',
-      pinyin: 'xǐ huān',
+      pinyin: 'xǐhuān',
       meaning: 'like',
     },
     {
       characters: '介绍',
-      pinyin: 'jiè shào',
+      pinyin: 'jièshào',
       meaning: 'introduction',
     },
     {
       characters: '一下儿',
-      pinyin: 'yī xiàr',
+      pinyin: 'yīxiàr',
       meaning: 'for a short while',
     },
     {
       characters: '唱歌',
-      pinyin: 'chàng gē',
+      pinyin: 'chànggē',
       meaning: 'sing',
     },
     {
       characters: '听音乐',
-      pinyin: 'tīn yīn yuè',
+      pinyin: 'tīn yīnyuè',
       meaning: 'listen to music',
     },
     {
       characters: '音乐迷',
-      pinyin: 'yīn yuè mí',
+      pinyin: 'yīnyuè mí',
       meaning: 'music fan',
     },
     {
@@ -38,42 +38,42 @@ export default {
     },
     {
       characters: '养动物',
-      pinyin: 'yǎng dòng wù',
+      pinyin: 'yǎng dòngwù',
       meaning: 'keep a pet',
     },
     {
       characters: '非常',
-      pinyin: 'fēi cháng',
+      pinyin: 'fēicháng',
       meaning: 'really',
     },
     {
       characters: '可爱',
-      pinyin: 'kě ài',
+      pinyin: 'kěài',
       meaning: 'lovely',
     },
     {
       characters: '看电影',
-      pinyin: 'kàn diàn yǐng',
+      pinyin: 'kàn diànyǐng',
       meaning: 'watch a movie',
     },
     {
       characters: '看电视',
-      pinyin: 'kàn diàn shì',
+      pinyin: 'kàn diànshì',
       meaning: 'watch TV',
     },
     {
       characters: '跳舞',
-      pinyin: 'tiào wǔ',
+      pinyin: 'tiàowǔ',
       meaning: 'dance',
     },
     {
       characters: '出门',
-      pinyin: 'chū mén',
+      pinyin: 'chūmén',
       meaning: 'go out',
     },
     {
       characters: '找朋友',
-      pinyin: 'zhǎo péng yǒu',
+      pinyin: 'zhǎo péngyǒu',
       meaning: 'find friends',
     },
     {
@@ -88,12 +88,12 @@ export default {
     },
     {
       characters: '杂志',
-      pinyin: 'zá zhì',
+      pinyin: 'zázhì',
       meaning: 'magazine',
     },
     {
       characters: '可以',
-      pinyin: 'kě yǐ',
+      pinyin: 'kěyǐ',
       meaning: 'can, may',
     },
     {
@@ -113,12 +113,12 @@ export default {
     },
     {
       characters: '有意思',
-      pinyin: 'yǒu yì si',
+      pinyin: 'yǒuyìsi',
       meaning: 'interesting',
     },
     {
       characters: '还是',
-      pinyin: 'hái shì',
+      pinyin: 'háishì',
       meaning: 'or',
     },
     {
