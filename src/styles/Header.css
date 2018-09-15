@@ -1,7 +1,8 @@
 .Header {
   text-align: center;
   font-size: 5vh;
-  padding: 3vh;
+  height: 11vh;
+  line-height: 11vh;
 }
 
 .Header--blue {
