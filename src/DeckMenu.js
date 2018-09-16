@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import LadderListItem from './LadderListItem';
+import Button from './Button';
 
 export default ({
   decks,
@@ -11,12 +11,13 @@ export default ({
 
   (
     decks.map(deck => (
-      <LadderListItem
+      <Button
+        modifierName="blue shadow"
         key={deck.name}
         onClick={() => onSelect(deck)}
       >
         {deck.name}
-      </LadderListItem>
+      </Button>
     ))
   ),
 ];
