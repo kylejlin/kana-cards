@@ -2,7 +2,6 @@ import React from 'react';
 import './styles/WritingDrill.css';
 import Header from './Header';
 import AffirmationSwipeIndicator from './AffirmationSwipeIndicator';
-import Button from './Button';
 
 export default ({
   deckName,
@@ -22,37 +21,40 @@ export default ({
   if (isTopCardRevealed) {
     return [
       <Header background="blue">{deckName}</Header>,
-      <div className="WritingDrill__Pinyin">{remainingCards[0].pinyin}</div>,
-      <div className="WritingDrill__CharacterContainer">
-        <div className="WritingDrill__Characters">
-          {remainingCards[0].characters}
-        </div>
-      </div>,
       <canvas
         key="canvas"
-        className="WritingDrill__Canvas--semitransparent"
         onTouchStart={onAffirmationSwipeStart}
         onTouchMove={onAffirmationSwipeMove}
         onTouchEnd={onAffirmationSwipeEnd}
         width={window.innerWidth}
-        height={window.innerHeight * 0.69}
+        height={window.innerHeight * 0.62}
         ref={canvasRef}
       />,
+      <div
+        className="WritingDrill__CharacterContainer"
+        onTouchStart={onAffirmationSwipeStart}
+        onTouchMove={onAffirmationSwipeMove}
+        onTouchEnd={onAffirmationSwipeEnd}
+      >
+        <div className="WritingDrill__Characters">
+          {remainingCards[0].characters}
+        </div>
+      </div>,
       <AffirmationSwipeIndicator normalizedDeltaX={normalizedDeltaX} />,
     ];
   }
   return [
     <Header background="blue">{deckName}</Header>,
-    <div className="WritingDrill__Pinyin">{remainingCards[0].pinyin}</div>,
     <canvas
       key="canvas"
-      className="WritingDrill__Canvas"
       onTouchStart={onPenStart}
       onTouchMove={onPenMove}
       width={window.innerWidth}
-      height={window.innerHeight * 0.69}
+      height={window.innerHeight * 0.62}
       ref={canvasRef}
     />,
-    <Button modifierName="blue center" onClick={onReveal}>Reveal</Button>,
+    <div className="WritingDrill__Pinyin" onClick={onReveal}>
+      {remainingCards[0].pinyin}
+    </div>,
   ];
 };

@@ -78,7 +78,7 @@ class CardsAgainstIlliteracy extends React.Component {
         />
       );
     } else if (
-      ['READING_DRILL'].includes(type)
+      ['READING_DRILL', 'WRITING_DRILL'].includes(type)
       && this.state.remainingCards.length === 0
     ) {
       return (
@@ -145,20 +145,10 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onDrillSelect(drill) {
-    if (drill === 'READING_DRILL') {
+    if (drill === 'READING_DRILL' || drill === 'WRITING_DRILL') {
       const { name, cards } = this.state.deck;
       this.setState({
-        type: 'READING_DRILL',
-        deckName: name,
-        remainingCards: randomlySort(cards),
-        isTopCardRevealed: false,
-        normalizedDeltaX: 0,
-        cardsToRepractice: [],
-      });
-    } else if (drill === 'WRITING_DRILL') {
-      const { name, cards } = this.state.deck;
-      this.setState({
-        type: 'WRITING_DRILL',
+        type: drill,
         deckName: name,
         remainingCards: randomlySort(cards),
         isTopCardRevealed: false,
@@ -255,7 +245,7 @@ class CardsAgainstIlliteracy extends React.Component {
       const ctx = this.canvasRef.current.getContext('2d');
       ctx.clearRect(0, 0, width, height);
     }
-    
+
     this.setState(prevState => {
       if (prevState.remainingCards.length > 1) {
         return {
@@ -276,11 +266,14 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onDrillRestart() {
-    if (this.state.type === 'READING_DRILL') {
+    if (
+      this.state.type === 'READING_DRILL'
+      || this.state.type === 'WRITING_DRILL'
+    ) {
       const deck = decks.find(d => d.name === this.state.deckName);
       const { name, cards } = deck;
       this.setState({
-        type: 'READING_DRILL',
+        type: this.state.type,
         deckName: name,
         remainingCards: randomlySort(cards),
         isTopCardRevealed: false,
@@ -298,7 +291,7 @@ class CardsAgainstIlliteracy extends React.Component {
 
   onPenStart({ changedTouches }) {
     const { clientX, clientY } = changedTouches[0];
-    const offsetY = window.innerHeight * 0.20;
+    const offsetY = window.innerHeight * 0.11;
     const adjustedY = clientY - offsetY;
     this.previousPenLocation = {
       x: clientX,
@@ -316,7 +309,7 @@ class CardsAgainstIlliteracy extends React.Component {
 
   onPenMove({ changedTouches }) {
     const { clientX, clientY } = changedTouches[0];
-    const offsetY = window.innerHeight * 0.20;
+    const offsetY = window.innerHeight * 0.11;
     const adjustedY = clientY - offsetY;
     const ctx = this.canvasRef.current.getContext('2d');
     ctx.fillRect(clientX, clientY - offsetY, 1, 1);
