@@ -37,12 +37,14 @@ class CardsAgainstIlliteracy extends React.Component {
       'onDrillRestart',
       'onHome',
       'onPenStart',
-      'onPenMove'
+      'onPenMove',
+      'onPenEnd',
     ].forEach((methodName) => {
       this[methodName] = this[methodName].bind(this);
     });
 
     this.canvasRef = React.createRef();
+    this.previousPenLocation = null;
   }
 
   componentDidMount() {
@@ -126,6 +128,7 @@ class CardsAgainstIlliteracy extends React.Component {
 
           onPenStart={this.onPenStart}
           onPenMove={this.onPenMove}
+          onPenEnd={this.onPenEnd}
           onReveal={this.onCardReveal}
           onAffirmationSwipeStart={this.onAffirmationSwipeStart}
           onAffirmationSwipeMove={this.onAffirmationSwipeMove}
@@ -289,8 +292,10 @@ class CardsAgainstIlliteracy extends React.Component {
     });
   }
 
-  onPenStart({ changedTouches }) {
-    const { clientX, clientY } = changedTouches[0];
+  onPenStart(event) {
+    const [clientX, clientY] = event.type === 'touchstart'
+      ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
+      : [event.clientX, event.clientY];
     const offsetY = window.innerHeight * 0.11;
     const adjustedY = clientY - offsetY;
     this.previousPenLocation = {
@@ -307,8 +312,14 @@ class CardsAgainstIlliteracy extends React.Component {
     );
   }
 
-  onPenMove({ changedTouches }) {
-    const { clientX, clientY } = changedTouches[0];
+  onPenMove(event) {
+    if (this.previousPenLocation === null) {
+      return;
+    }
+
+    const [clientX, clientY] = event.type === 'touchmove'
+      ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
+      : [event.clientX, event.clientY];
     const offsetY = window.innerHeight * 0.11;
     const adjustedY = clientY - offsetY;
     const ctx = this.canvasRef.current.getContext('2d');
@@ -324,6 +335,10 @@ class CardsAgainstIlliteracy extends React.Component {
       x: clientX,
       y: adjustedY,
     };
+  }
+
+  onPenEnd() {
+    this.previousPenLocation = null;
   }
 
   simulateRightSwipe() {

@@ -11,6 +11,7 @@ export default ({
 
   onPenStart,
   onPenMove,
+  onPenEnd,
   onReveal,
   onAffirmationSwipeStart,
   onAffirmationSwipeMove,
@@ -49,6 +50,9 @@ export default ({
       key="canvas"
       onTouchStart={onPenStart}
       onTouchMove={onPenMove}
+      onMouseDown={onPenStart}
+      onMouseMove={onPenMove}
+      onMouseUp={onPenEnd}
       width={window.innerWidth}
       height={window.innerHeight * 0.62}
       ref={canvasRef}
