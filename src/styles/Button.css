@@ -11,3 +11,7 @@
 .Button--shadow {
   box-shadow: 0 0 0.1em 0.1em #000a;
 }
+
+.Button--center {
+  text-align: center;
+}

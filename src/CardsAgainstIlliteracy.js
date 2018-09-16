@@ -4,12 +4,15 @@ import randomlySort from './randomlySort';
 import DeckMenu from './DeckMenu';
 import DrillMenu from './DrillMenu';
 import ReadingDrill from './ReadingDrill';
+import WritingDrill from './WritingDrill';
 import PostDrillMenu from './PostDrillMenu';
 
 const SWIPE_SIZE = window.innerWidth * 0.40;
 
 const SIMULATED_SWIPE_DURATION = 0.15e3;
 const SIMULATED_SWIPE_PAUSE_FACTOR = 0.2;
+
+const PEN_STROKE_WIDTH = 2;
 
 const SUPPORTS_TOUCH = 'ontouchstart' in window;
 
@@ -33,9 +36,13 @@ class CardsAgainstIlliteracy extends React.Component {
       'onCardIncorrect',
       'onDrillRestart',
       'onHome',
+      'onPenStart',
+      'onPenMove'
     ].forEach((methodName) => {
       this[methodName] = this[methodName].bind(this);
     });
+
+    this.canvasRef = React.createRef();
   }
 
   componentDidMount() {
@@ -102,6 +109,31 @@ class CardsAgainstIlliteracy extends React.Component {
           onAffirmationSwipeEnd={this.onAffirmationSwipeEnd}
         />
       );
+    } else if (type === 'WRITING_DRILL') {
+      const {
+        deckName,
+        remainingCards,
+        isTopCardRevealed,
+        normalizedDeltaX,
+      } = this.state;
+
+      return (
+        <WritingDrill
+          deckName={deckName}
+          remainingCards={remainingCards}
+          isTopCardRevealed={isTopCardRevealed}
+          normalizedDeltaX={normalizedDeltaX}
+
+          onPenStart={this.onPenStart}
+          onPenMove={this.onPenMove}
+          onReveal={this.onCardReveal}
+          onAffirmationSwipeStart={this.onAffirmationSwipeStart}
+          onAffirmationSwipeMove={this.onAffirmationSwipeMove}
+          onAffirmationSwipeEnd={this.onAffirmationSwipeEnd}
+
+          canvasRef={this.canvasRef}
+        />
+      );
     }
   }
 
@@ -117,6 +149,16 @@ class CardsAgainstIlliteracy extends React.Component {
       const { name, cards } = this.state.deck;
       this.setState({
         type: 'READING_DRILL',
+        deckName: name,
+        remainingCards: randomlySort(cards),
+        isTopCardRevealed: false,
+        normalizedDeltaX: 0,
+        cardsToRepractice: [],
+      });
+    } else if (drill === 'WRITING_DRILL') {
+      const { name, cards } = this.state.deck;
+      this.setState({
+        type: 'WRITING_DRILL',
         deckName: name,
         remainingCards: randomlySort(cards),
         isTopCardRevealed: false,
@@ -186,6 +228,12 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onCardCorrect() {
+    if (this.state.type === 'WRITING_DRILL') {
+      const { width, height } = this.canvasRef.current;
+      const ctx = this.canvasRef.current.getContext('2d');
+      ctx.clearRect(0, 0, width, height);
+    }
+
     this.setState(prevState => {
       if (prevState.remainingCards.length > 1) {
         return {
@@ -202,6 +250,12 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onCardIncorrect() {
+    if (this.state.type === 'WRITING_DRILL') {
+      const { width, height } = this.canvasRef.current;
+      const ctx = this.canvasRef.current.getContext('2d');
+      ctx.clearRect(0, 0, width, height);
+    }
+    
     this.setState(prevState => {
       if (prevState.remainingCards.length > 1) {
         return {
@@ -240,6 +294,43 @@ class CardsAgainstIlliteracy extends React.Component {
     this.setState({
       type: 'DECK_MENU',
     });
+  }
+
+  onPenStart({ changedTouches }) {
+    const { clientX, clientY } = changedTouches[0];
+    const offsetY = window.innerHeight * 0.20;
+    const adjustedY = clientY - offsetY;
+    this.previousPenLocation = {
+      x: clientX,
+      y: adjustedY,
+    };
+    const ctx = this.canvasRef.current.getContext('2d');
+    ctx.fillStyle = '#000088';
+    ctx.fillRect(
+      clientX,
+      clientY - offsetY,
+      PEN_STROKE_WIDTH,
+      PEN_STROKE_WIDTH,
+    );
+  }
+
+  onPenMove({ changedTouches }) {
+    const { clientX, clientY } = changedTouches[0];
+    const offsetY = window.innerHeight * 0.20;
+    const adjustedY = clientY - offsetY;
+    const ctx = this.canvasRef.current.getContext('2d');
+    ctx.fillRect(clientX, clientY - offsetY, 1, 1);
+    ctx.beginPath();
+    ctx.moveTo(this.previousPenLocation.x, this.previousPenLocation.y);
+    ctx.lineTo(clientX, adjustedY);
+    ctx.closePath();
+    ctx.lineWidth = PEN_STROKE_WIDTH;
+    ctx.strokeStyle = '#000088';
+    ctx.stroke();
+    this.previousPenLocation = {
+      x: clientX,
+      y: adjustedY,
+    };
   }
 
   simulateRightSwipe() {
