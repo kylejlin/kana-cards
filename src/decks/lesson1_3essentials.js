@@ -1,5 +1,5 @@
 export default {
-  name: 'Lesson 1.3 Essentials',
+  name: '1.3 Essentials',
   cards: [
     {
       characters: '球拍',
