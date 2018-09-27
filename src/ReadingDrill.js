@@ -3,6 +3,12 @@ import './styles/ReadingDrill.css';
 import Header from './Header';
 import AffirmationSwipeIndicator from './AffirmationSwipeIndicator';
 
+const getCardFrontClassName = card => (
+  'ReadingDrill__CardFront' + (
+    card.characters.length > 4 ? ' ReadingDrill__CardFront--small' : ''
+  )
+);
+
 const ReadingDrill = ({
   deckName,
   remainingCards,
@@ -19,7 +25,7 @@ const ReadingDrill = ({
       <Header background="blue">{deckName}</Header>,
 
       <div className="ReadingDrill__CardFrontContainer" onClick={onReveal}>
-        <div className="ReadingDrill__CardFront">
+        <div className={getCardFrontClassName(remainingCards[0])}>
           {remainingCards[0].characters}
         </div>
       </div>,

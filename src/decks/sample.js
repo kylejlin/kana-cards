@@ -2,9 +2,9 @@ export default {
   name: 'Sample Phrases',
   cards: [
     {
-      characters: '喜欢',
-      pinyin: 'xǐ huān',
-      meaning: 'like',
+      characters: '坐公共汽车',
+      pinyin: 'zuò gōnggòng qìchē',
+      meaning: 'take a bus',
     },
     {
       characters: '介绍',
