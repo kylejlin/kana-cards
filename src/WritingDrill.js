@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/WritingDrill.css';
+import HomeButton from './HomeButton';
 import Header from './Header';
 import AffirmationSwipeIndicator from './AffirmationSwipeIndicator';
 
@@ -9,6 +10,7 @@ export default ({
   isTopCardRevealed,
   normalizedDeltaX,
 
+  onHome,
   onPenStart,
   onPenMove,
   onPenEnd,
@@ -22,6 +24,7 @@ export default ({
   if (isTopCardRevealed) {
     return [
       <Header background="blue">{deckName}</Header>,
+      <HomeButton onClick={onHome}/>,
       <canvas
         key="canvas"
         onTouchStart={onAffirmationSwipeStart}
@@ -46,6 +49,7 @@ export default ({
   }
   return [
     <Header background="blue">{deckName}</Header>,
+    <HomeButton onClick={onHome}/>,
     <canvas
       key="canvas"
       onTouchStart={onPenStart}

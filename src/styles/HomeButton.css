@@ -1,0 +1,14 @@
+.HomeButton {
+  position: fixed;
+  top: 1.5vh;
+  right: 2vw;
+  width: 8vh;
+  height: 8vh;
+  font-size: 5vh;
+  border: 1px solid white;
+  border-radius: 1vh;
+  background-color: #008;
+  color: white;
+  outline: none;
+  user-select: none;
+}

@@ -105,6 +105,7 @@ class CardsAgainstIlliteracy extends React.Component {
           isTopCardRevealed={isTopCardRevealed}
           normalizedDeltaX={normalizedDeltaX}
 
+          onHome={this.onHome}
           onReveal={this.onCardReveal}
           onAffirmationSwipeStart={this.onAffirmationSwipeStart}
           onAffirmationSwipeMove={this.onAffirmationSwipeMove}
@@ -126,6 +127,7 @@ class CardsAgainstIlliteracy extends React.Component {
           isTopCardRevealed={isTopCardRevealed}
           normalizedDeltaX={normalizedDeltaX}
 
+          onHome={this.onHome}
           onPenStart={this.onPenStart}
           onPenMove={this.onPenMove}
           onPenEnd={this.onPenEnd}

@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/ReadingDrill.css';
+import HomeButton from './HomeButton';
 import Header from './Header';
 import AffirmationSwipeIndicator from './AffirmationSwipeIndicator';
 
@@ -15,6 +16,7 @@ const ReadingDrill = ({
   isTopCardRevealed,
   normalizedDeltaX,
 
+  onHome,
   onReveal,
   onAffirmationSwipeStart,
   onAffirmationSwipeMove,
@@ -23,6 +25,7 @@ const ReadingDrill = ({
   if (!isTopCardRevealed) {
     return [
       <Header background="blue">{deckName}</Header>,
+      <HomeButton onClick={onHome}/>,
 
       <div className="ReadingDrill__CardFrontContainer" onClick={onReveal}>
         <div className={getCardFrontClassName(remainingCards[0])}>
@@ -34,6 +37,7 @@ const ReadingDrill = ({
 
   return [
     <Header background="blue">{deckName}</Header>,
+    <HomeButton onClick={onHome}/>,
 
     <div
       className="ReadingDrill__CardBackContainer"
