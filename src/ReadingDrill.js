@@ -14,6 +14,7 @@ const ReadingDrill = ({
   deckName,
   remainingCards,
   isTopCardRevealed,
+  selectedSwipeDirection,
   normalizedDeltaX,
 
   onHome,
@@ -51,7 +52,10 @@ const ReadingDrill = ({
       </div>
     </div>,
 
-    <AffirmationSwipeIndicator normalizedDeltaX={normalizedDeltaX} />,
+    <AffirmationSwipeIndicator
+      selectedSwipeDirection={selectedSwipeDirection}
+      normalizedDeltaX={normalizedDeltaX}
+    />,
   ];
 };
 

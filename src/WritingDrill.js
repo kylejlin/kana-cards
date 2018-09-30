@@ -8,6 +8,7 @@ export default ({
   deckName,
   remainingCards,
   isTopCardRevealed,
+  selectedSwipeDirection,
   normalizedDeltaX,
 
   onHome,
@@ -44,7 +45,10 @@ export default ({
           {remainingCards[0].characters}
         </div>
       </div>,
-      <AffirmationSwipeIndicator normalizedDeltaX={normalizedDeltaX} />,
+      <AffirmationSwipeIndicator
+        selectedSwipeDirection={selectedSwipeDirection}
+        normalizedDeltaX={normalizedDeltaX}
+      />,
     ];
   }
   return [

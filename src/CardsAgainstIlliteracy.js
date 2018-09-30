@@ -108,6 +108,7 @@ class CardsAgainstIlliteracy extends React.Component {
         deckName,
         remainingCards,
         isTopCardRevealed,
+        selectedSwipeDirection,
         normalizedDeltaX,
       } = this.state;
 
@@ -116,6 +117,7 @@ class CardsAgainstIlliteracy extends React.Component {
           deckName={deckName}
           remainingCards={remainingCards}
           isTopCardRevealed={isTopCardRevealed}
+          selectedSwipeDirection={selectedSwipeDirection}
           normalizedDeltaX={normalizedDeltaX}
 
           onHome={this.onHome}
@@ -130,6 +132,7 @@ class CardsAgainstIlliteracy extends React.Component {
         deckName,
         remainingCards,
         isTopCardRevealed,
+        selectedSwipeDirection,
         normalizedDeltaX,
       } = this.state;
 
@@ -138,6 +141,7 @@ class CardsAgainstIlliteracy extends React.Component {
           deckName={deckName}
           remainingCards={remainingCards}
           isTopCardRevealed={isTopCardRevealed}
+          selectedSwipeDirection={selectedSwipeDirection}
           normalizedDeltaX={normalizedDeltaX}
 
           onHome={this.onHome}
@@ -220,13 +224,20 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onAffirmationSwipeEnd() {
+    const { selectedSwipeDirection, normalizedDeltaX } = this.state;
     this.setState({
       startingTouch: null,
       normalizedDeltaX: 0,
     });
-    if (this.state.normalizedDeltaX === -1) {
+    if (
+      (selectedSwipeDirection === 'Right' && normalizedDeltaX === -1)
+        || (selectedSwipeDirection === 'Left' && normalizedDeltaX === 1)
+    ) {
       this.onCardIncorrect();
-    } else if (this.state.normalizedDeltaX === 1) {
+    } else if (
+      (selectedSwipeDirection === 'Right' && normalizedDeltaX === 1)
+        || (selectedSwipeDirection === 'Left' && normalizedDeltaX === -1)
+    ) {
       this.onCardCorrect();
     }
   }
@@ -377,7 +388,11 @@ class CardsAgainstIlliteracy extends React.Component {
       if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
         requestAnimationFrame(render);
       } else {
-        this.onCardCorrect();
+        if (this.state.selectedSwipeDirection === 'Right') {
+          this.onCardCorrect();
+        } else {
+          this.onCardIncorrect();
+        }
       }
       this.setState({
         normalizedDeltaX: completionFactor,
@@ -394,7 +409,11 @@ class CardsAgainstIlliteracy extends React.Component {
       if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
         requestAnimationFrame(render);
       } else {
-        this.onCardIncorrect();
+        if (this.state.selectedSwipeDirection === 'Right') {
+          this.onCardIncorrect();
+        } else {
+          this.onCardCorrect();
+        }
       }
       this.setState({
         normalizedDeltaX: -completionFactor,
