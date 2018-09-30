@@ -24,7 +24,7 @@ export default ({
   if (isTopCardRevealed) {
     return [
       <Header background="blue">{deckName}</Header>,
-      <HomeButton onClick={onHome}/>,
+      <HomeButton color="blue" onClick={onHome}/>,
       <canvas
         key="canvas"
         onTouchStart={onAffirmationSwipeStart}
@@ -49,7 +49,7 @@ export default ({
   }
   return [
     <Header background="blue">{deckName}</Header>,
-    <HomeButton onClick={onHome}/>,
+    <HomeButton color="blue" onClick={onHome}/>,
     <canvas
       key="canvas"
       onTouchStart={onPenStart}

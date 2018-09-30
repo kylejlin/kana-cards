@@ -5,10 +5,19 @@
   width: 8vh;
   height: 8vh;
   font-size: 5vh;
-  border: 1px solid white;
   border-radius: 1vh;
-  background-color: #008;
-  color: white;
   outline: none;
   user-select: none;
+}
+
+.HomeButton--blue {
+  border: 1px solid white;
+  background-color: #008;
+  color: white;
+}
+
+.HomeButton--white {
+  border: 1px solid #008;
+  background-color: white;
+  color: #008;
 }

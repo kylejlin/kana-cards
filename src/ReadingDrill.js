@@ -25,7 +25,7 @@ const ReadingDrill = ({
   if (!isTopCardRevealed) {
     return [
       <Header background="blue">{deckName}</Header>,
-      <HomeButton onClick={onHome}/>,
+      <HomeButton color="blue" onClick={onHome}/>,
 
       <div className="ReadingDrill__CardFrontContainer" onClick={onReveal}>
         <div className={getCardFrontClassName(remainingCards[0])}>
@@ -37,7 +37,7 @@ const ReadingDrill = ({
 
   return [
     <Header background="blue">{deckName}</Header>,
-    <HomeButton onClick={onHome}/>,
+    <HomeButton color="blue" onClick={onHome}/>,
 
     <div
       className="ReadingDrill__CardBackContainer"
