@@ -1,6 +1,7 @@
 import React from 'react';
 import decks from './decks/index';
 import randomlySort from './randomlySort';
+import SettingsMenu from './SettingsMenu';
 import DeckMenu from './DeckMenu';
 import DrillMenu from './DrillMenu';
 import ReadingDrill from './ReadingDrill';
@@ -22,9 +23,12 @@ class CardsAgainstIlliteracy extends React.Component {
 
     this.state = {
       type: 'DECK_MENU',
+      selectedSwipeDirection: localStorage.selectedSwipeDirection || 'Right',
     };
 
     [
+      'onSettings',
+      'onSelectSwipeDirection',
       'onDeckSelect',
       'onDrillSelect',
       'onCardReveal',
@@ -61,11 +65,20 @@ class CardsAgainstIlliteracy extends React.Component {
 
   render() {
     const { type } = this.state;
-    if (type === 'DECK_MENU') {
+    if (type === 'SETTINGS_MENU') {
+      return (
+        <SettingsMenu
+          selectedSwipeDirection={this.state.selectedSwipeDirection}
+          onHome={this.onHome}
+          onSelectSwipeDirection={this.onSelectSwipeDirection}
+        />
+      );
+    } else if (type === 'DECK_MENU') {
       return (
         <DeckMenu
           decks={decks}
 
+          onSettings={this.onSettings}
           onSelect={this.onDeckSelect}
         />
       );
@@ -140,6 +153,19 @@ class CardsAgainstIlliteracy extends React.Component {
         />
       );
     }
+  }
+
+  onSettings() {
+    this.setState({
+      type: 'SETTINGS_MENU',
+    });
+  }
+
+  onSelectSwipeDirection(selectedSwipeDirection) {
+    this.setState({
+      selectedSwipeDirection,
+    });
+    localStorage.selectedSwipeDirection = selectedSwipeDirection;
   }
 
   onDeckSelect(deck) {

@@ -1,0 +1,13 @@
+.SettingsButton {
+  position: fixed;
+  top: 1.5vh;
+  right: 2vw;
+  width: 6vh;
+  height: 6vh;
+  padding: 1vh;
+  font-size: 5vh;
+  border-radius: 1vh;
+  outline: none;
+  user-select: none;
+  border: 1px solid #008;
+}
