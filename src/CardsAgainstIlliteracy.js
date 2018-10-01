@@ -8,7 +8,8 @@ import ReadingDrill from './ReadingDrill';
 import WritingDrill from './WritingDrill';
 import PostDrillMenu from './PostDrillMenu';
 
-const SWIPE_SIZE = window.innerWidth * 0.40;
+const HORIZONTAL_SWIPE_SIZE = window.innerWidth * 0.40;
+const VERTICAL_SWIPE_SIZE = window.innerHeight * 0.20;
 
 const SIMULATED_SWIPE_DURATION = 0.15e3;
 const SIMULATED_SWIPE_PAUSE_FACTOR = 0.2;
@@ -109,7 +110,7 @@ class CardsAgainstIlliteracy extends React.Component {
         remainingCards,
         isTopCardRevealed,
         selectedSwipeDirection,
-        normalizedDeltaX,
+        normalizedDelta,
       } = this.state;
 
       return (
@@ -118,7 +119,7 @@ class CardsAgainstIlliteracy extends React.Component {
           remainingCards={remainingCards}
           isTopCardRevealed={isTopCardRevealed}
           selectedSwipeDirection={selectedSwipeDirection}
-          normalizedDeltaX={normalizedDeltaX}
+          normalizedDelta={normalizedDelta}
 
           onHome={this.onHome}
           onReveal={this.onCardReveal}
@@ -133,7 +134,7 @@ class CardsAgainstIlliteracy extends React.Component {
         remainingCards,
         isTopCardRevealed,
         selectedSwipeDirection,
-        normalizedDeltaX,
+        normalizedDelta,
       } = this.state;
 
       return (
@@ -142,7 +143,7 @@ class CardsAgainstIlliteracy extends React.Component {
           remainingCards={remainingCards}
           isTopCardRevealed={isTopCardRevealed}
           selectedSwipeDirection={selectedSwipeDirection}
-          normalizedDeltaX={normalizedDeltaX}
+          normalizedDelta={normalizedDelta}
 
           onHome={this.onHome}
           onPenStart={this.onPenStart}
@@ -187,7 +188,7 @@ class CardsAgainstIlliteracy extends React.Component {
         deckName: name,
         remainingCards: randomlySort(cards),
         isTopCardRevealed: false,
-        normalizedDeltaX: 0,
+        normalizedDelta: 0,
         cardsToRepractice: [],
       });
     }
@@ -198,14 +199,22 @@ class CardsAgainstIlliteracy extends React.Component {
       return;
     }
 
-    const touch = {
-      id: changedTouches[0].identifier,
-      x: changedTouches[0].clientX,
-    };
+    const isSwipeDirectionHorizontal = ['Right', 'Left']
+      .includes(this.state.selectedSwipeDirection);
+
+    const touch = isSwipeDirectionHorizontal
+      ? {
+        id: changedTouches[0].identifier,
+        x: changedTouches[0].clientX,
+      }
+      : {
+        id: changedTouches[0].identifier,
+        y: changedTouches[0].clientY,
+      };
 
     this.setState({
       startingTouch: touch,
-      normalizedDeltaX: 0,
+      normalizedDelta: 0,
     });
   }
 
@@ -216,38 +225,70 @@ class CardsAgainstIlliteracy extends React.Component {
     if (!newTouch) {
       return;
     }
-    const deltaX = newTouch.clientX - this.state.startingTouch.x;
-    const normalizedDeltaX = Math.max(-1, Math.min(1, deltaX / SWIPE_SIZE));
-    this.setState({
-      normalizedDeltaX,
-    });
+    const isSwipeDirectionHorizontal = ['Right', 'Left']
+      .includes(this.state.selectedSwipeDirection);
+    if (isSwipeDirectionHorizontal) {
+      const deltaX = newTouch.clientX - this.state.startingTouch.x;
+      const normalizedDelta = Math.max(
+        -1,
+        Math.min(1, deltaX / HORIZONTAL_SWIPE_SIZE),
+      );
+      this.setState({
+        normalizedDelta,
+      });
+    } else {
+      const deltaY = newTouch.clientY - this.state.startingTouch.y;
+      const normalizedDelta = Math.max(
+        -1,
+        Math.min(1, deltaY / VERTICAL_SWIPE_SIZE),
+      );
+      this.setState({
+        normalizedDelta,
+      });
+    }
   }
 
   onAffirmationSwipeEnd() {
-    const { selectedSwipeDirection, normalizedDeltaX } = this.state;
+    const { selectedSwipeDirection, normalizedDelta } = this.state;
     this.setState({
       startingTouch: null,
-      normalizedDeltaX: 0,
+      normalizedDelta: 0,
     });
     if (
-      (selectedSwipeDirection === 'Right' && normalizedDeltaX === -1)
-        || (selectedSwipeDirection === 'Left' && normalizedDeltaX === 1)
+      (selectedSwipeDirection === 'Right' && normalizedDelta === -1)
+        || (selectedSwipeDirection === 'Left' && normalizedDelta === 1)
+        || (selectedSwipeDirection === 'Up' && normalizedDelta === 1)
+        || (selectedSwipeDirection === 'Down' && normalizedDelta === -1)
     ) {
       this.onCardIncorrect();
     } else if (
-      (selectedSwipeDirection === 'Right' && normalizedDeltaX === 1)
-        || (selectedSwipeDirection === 'Left' && normalizedDeltaX === -1)
+      (selectedSwipeDirection === 'Right' && normalizedDelta === 1)
+        || (selectedSwipeDirection === 'Left' && normalizedDelta === -1)
+        || (selectedSwipeDirection === 'Up' && normalizedDelta === -1)
+        || (selectedSwipeDirection === 'Down' && normalizedDelta === 1)
     ) {
       this.onCardCorrect();
     }
   }
 
   onKeyUp({ key }) {
+
     if (this.state.lessonId !== null && this.state.isTopCardRevealed) {
-      if (key === 'ArrowRight' || key === 'Right') {
-        this.simulateRightSwipe();
-      } else if (key === 'ArrowLeft' || key === 'Left') {
-        this.simulateLeftSwipe();
+      const isSwipeDirectionHorizontal = ['Right', 'Left']
+        .includes(this.state.selectedSwipeDirection);
+
+      if (isSwipeDirectionHorizontal) {
+        if (key === 'ArrowRight' || key === 'Right') {
+          this.simulateRightSwipe();
+        } else if (key === 'ArrowLeft' || key === 'Left') {
+          this.simulateLeftSwipe();
+        }
+      } else {
+        if (key === 'ArrowUp' || key === 'Up') {
+          this.simulateUpSwipe();
+        } else if (key === 'ArrowDown' || key === 'Down') {
+          this.simulateDownSwipe();
+        }
       }
     }
   }
@@ -255,7 +296,7 @@ class CardsAgainstIlliteracy extends React.Component {
   onCardReveal() {
     this.setState({
       isTopCardRevealed: true,
-      normalizedDeltaX: 0,
+      normalizedDelta: 0,
     });
   }
 
@@ -319,7 +360,7 @@ class CardsAgainstIlliteracy extends React.Component {
         deckName: name,
         remainingCards: randomlySort(cards),
         isTopCardRevealed: false,
-        normalizedDeltaX: 0,
+        normalizedDelta: 0,
         cardsToRepractice: [],
       });
     }
@@ -395,7 +436,7 @@ class CardsAgainstIlliteracy extends React.Component {
         }
       }
       this.setState({
-        normalizedDeltaX: completionFactor,
+        normalizedDelta: Math.min(1, completionFactor),
       });
     };
     render();
@@ -409,14 +450,56 @@ class CardsAgainstIlliteracy extends React.Component {
       if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
         requestAnimationFrame(render);
       } else {
-        if (this.state.selectedSwipeDirection === 'Right') {
-          this.onCardIncorrect();
-        } else {
+        if (this.state.selectedSwipeDirection === 'Left') {
           this.onCardCorrect();
+        } else {
+          this.onCardIncorrect();
         }
       }
       this.setState({
-        normalizedDeltaX: -completionFactor,
+        normalizedDelta: Math.max(-1, -completionFactor),
+      });
+    };
+    render();
+  }
+
+  simulateUpSwipe() {
+    const start = Date.now();
+    const render = () => {
+      const now = Date.now();
+      const completionFactor = (now - start) / SIMULATED_SWIPE_DURATION;
+      if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
+        requestAnimationFrame(render);
+      } else {
+        if (this.state.selectedSwipeDirection === 'Up') {
+          this.onCardCorrect();
+        } else {
+          this.onCardIncorrect();
+        }
+      }
+      this.setState({
+        normalizedDelta: Math.max(-1, -completionFactor),
+      });
+    };
+    render();
+  }
+
+  simulateDownSwipe() {
+    const start = Date.now();
+    const render = () => {
+      const now = Date.now();
+      const completionFactor = (now - start) / SIMULATED_SWIPE_DURATION;
+      if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
+        requestAnimationFrame(render);
+      } else {
+        if (this.state.selectedSwipeDirection === 'Down') {
+          this.onCardCorrect();
+        } else {
+          this.onCardIncorrect();
+        }
+      }
+      this.setState({
+        normalizedDelta: Math.min(1, completionFactor),
       });
     };
     render();

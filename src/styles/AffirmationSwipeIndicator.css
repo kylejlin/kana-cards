@@ -1,4 +1,4 @@
-.AffirmationSwipeIndicator--correct {
+.AffirmationSwipeIndicator--horizontal--correct {
   background-color: #0a0a;
   top: 11vh;
   height: 89vh;
@@ -6,10 +6,28 @@
   z-index: 1;
 }
 
-.AffirmationSwipeIndicator--incorrect {
+.AffirmationSwipeIndicator--horizontal--incorrect {
   background-color: #a00a;
   top: 11vh;
   height: 89vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
+}
+
+.AffirmationSwipeIndicator--vertical--correct {
+  background-color: #0a0a;
+  top: 11vh;
+  left: 0;
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
+}
+
+.AffirmationSwipeIndicator--vertical--incorrect {
+  background-color: #a00a;
+  left: 0;
+  top: 11vh;
   width: 100vw;
   position: absolute;
   z-index: 1;

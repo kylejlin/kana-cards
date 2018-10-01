@@ -9,7 +9,7 @@ export default ({
   remainingCards,
   isTopCardRevealed,
   selectedSwipeDirection,
-  normalizedDeltaX,
+  normalizedDelta,
 
   onHome,
   onPenStart,
@@ -47,7 +47,7 @@ export default ({
       </div>,
       <AffirmationSwipeIndicator
         selectedSwipeDirection={selectedSwipeDirection}
-        normalizedDeltaX={normalizedDeltaX}
+        normalizedDelta={normalizedDelta}
       />,
     ];
   }
