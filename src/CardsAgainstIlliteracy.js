@@ -8,7 +8,7 @@ import ReadingDrill from './ReadingDrill';
 import WritingDrill from './WritingDrill';
 import PostDrillMenu from './PostDrillMenu';
 
-const HORIZONTAL_SWIPE_SIZE = window.innerWidth * 0.40;
+const HORIZONTAL_SWIPE_SIZE = window.innerWidth * 0.30;
 const VERTICAL_SWIPE_SIZE = window.innerHeight * 0.20;
 
 const SIMULATED_SWIPE_DURATION = 0.15e3;
