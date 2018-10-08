@@ -1,12 +1,12 @@
 import React from 'react';
 import decks from './decks/index';
 import randomlySort from './randomlySort';
-import SettingsMenu from './SettingsMenu';
-import DeckMenu from './DeckMenu';
-import DrillMenu from './DrillMenu';
-import ReadingDrill from './ReadingDrill';
-import WritingDrill from './WritingDrill';
-import PostDrillMenu from './PostDrillMenu';
+import SettingsMenu from './containers/SettingsMenu';
+import DeckMenu from './containers/DeckMenu';
+import DrillMenu from './containers/DrillMenu';
+import ReadingDrill from './containers/ReadingDrill';
+import WritingDrill from './containers/WritingDrill';
+import PostDrillMenu from './containers/PostDrillMenu';
 
 const HORIZONTAL_SWIPE_SIZE = window.innerWidth * 0.30;
 const VERTICAL_SWIPE_SIZE = window.innerHeight * 0.20;

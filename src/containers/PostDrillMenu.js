@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Header';
-import Button from './Button';
+import Header from '../components/Header';
+import Button from '../components/Button';
 
 export default ({ deckName, onRestart, onHome }) => [
   <Header background="white">{deckName}</Header>,

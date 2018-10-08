@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/Radio.css';
+import '../styles/Radio.css';
 
 export default ({ children, checked, onClick }) => (
   <div

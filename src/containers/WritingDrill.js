@@ -1,8 +1,8 @@
 import React from 'react';
-import './styles/WritingDrill.css';
-import HomeButton from './HomeButton';
-import Header from './Header';
-import AffirmationSwipeIndicator from './AffirmationSwipeIndicator';
+import '../styles/WritingDrill.css';
+import HomeButton from '../components/HomeButton';
+import Header from '../components/Header';
+import AffirmationSwipeIndicator from '../components/AffirmationSwipeIndicator';
 
 export default ({
   deckName,

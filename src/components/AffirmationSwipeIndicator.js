@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/AffirmationSwipeIndicator.css';
+import '../styles/AffirmationSwipeIndicator.css';
 
 export default ({ selectedSwipeDirection, normalizedDelta }) => {
   switch (selectedSwipeDirection) {

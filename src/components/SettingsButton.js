@@ -1,6 +1,6 @@
 import React from 'react';
-import './styles/SettingsButton.css';
-import settingsIcon from './settings.svg';
+import '../styles/SettingsButton.css';
+import settingsIcon from '../images/settings.svg';
 
 export default ({ onClick }) => (
   <img

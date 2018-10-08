@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './Header';
-import HomeButton from './HomeButton';
-import Button from './Button';
+import Header from '../components/Header';
+import HomeButton from '../components/HomeButton';
+import Button from '../components/Button';
 
 export default ({ deckName, onDrillSelect, onHome }) => [
   <Header background="white">{deckName}</Header>,

@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from './Header';
-import HomeButton from './HomeButton';
-import Section from './Section';
-import Radio from './Radio';
+import Header from '../components/Header';
+import HomeButton from '../components/HomeButton';
+import Section from '../components/Section';
+import Radio from '../components/Radio';
 
 const DIRECTIONS = ['Right', 'Left', 'Up', 'Down'];
 
