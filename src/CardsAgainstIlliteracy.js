@@ -25,11 +25,15 @@ class CardsAgainstIlliteracy extends React.Component {
     this.state = {
       type: 'DECK_MENU',
       selectedSwipeDirection: localStorage.selectedSwipeDirection || 'Right',
+      displayedDeckTypes: localStorage.displayedDeckTypes
+        ? JSON.parse(localStorage.displayedDeckTypes)
+        : { Phrases: true, Essentials: true },
     };
 
     [
       'onSettings',
       'onSelectSwipeDirection',
+      'onToggleDeckTypeDisplay',
       'onDeckSelect',
       'onDrillSelect',
       'onCardReveal',
@@ -70,14 +74,16 @@ class CardsAgainstIlliteracy extends React.Component {
       return (
         <SettingsMenu
           selectedSwipeDirection={this.state.selectedSwipeDirection}
+          displayedDeckTypes={this.state.displayedDeckTypes}
           onHome={this.onHome}
           onSelectSwipeDirection={this.onSelectSwipeDirection}
+          onToggleDeckTypeDisplay={this.onToggleDeckTypeDisplay}
         />
       );
     } else if (type === 'DECK_MENU') {
       return (
         <DeckMenu
-          decks={decks}
+          decks={this.getDisplayedDecks()}
 
           onSettings={this.onSettings}
           onSelect={this.onDeckSelect}
@@ -171,6 +177,25 @@ class CardsAgainstIlliteracy extends React.Component {
       selectedSwipeDirection,
     });
     localStorage.selectedSwipeDirection = selectedSwipeDirection;
+  }
+
+  onToggleDeckTypeDisplay(deckType) {
+    const displayedDeckTypes = {
+      ...this.state.displayedDeckTypes,
+      [deckType]: !this.state.displayedDeckTypes[deckType],
+    };
+    this.setState({
+      displayedDeckTypes,
+    });
+    localStorage.displayedDeckTypes = JSON.stringify(displayedDeckTypes);
+  }
+
+  getDisplayedDecks() {
+    const displayedDeckTypes = Object.keys(this.state.displayedDeckTypes)
+      .filter(key => this.state.displayedDeckTypes[key]);
+    return decks.filter(deck => (
+      displayedDeckTypes.some(deckType => deck.name.includes(deckType))
+    ));
   }
 
   onDeckSelect(deck) {
