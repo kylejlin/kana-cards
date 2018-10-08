@@ -25,10 +25,14 @@ const ReadingDrill = ({
 }) => {
   if (!isTopCardRevealed) {
     return [
-      <Header background="blue">{deckName}</Header>,
-      <HomeButton color="blue" onClick={onHome}/>,
+      <Header background="blue" key="Header">{deckName}</Header>,
+      <HomeButton color="blue" onClick={onHome} key="HomeButton"/>,
 
-      <div className="ReadingDrill__CardFrontContainer" onClick={onReveal}>
+      <div
+        className="ReadingDrill__CardFrontContainer"
+        onClick={onReveal}
+        key="ReadingDrillCharacters"
+      >
         <div className={getCardFrontClassName(remainingCards[0])}>
           {remainingCards[0].characters}
         </div>
@@ -37,14 +41,15 @@ const ReadingDrill = ({
   }
 
   return [
-    <Header background="blue">{deckName}</Header>,
-    <HomeButton color="blue" onClick={onHome}/>,
+    <Header background="blue" key="Header">{deckName}</Header>,
+    <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
 
     <div
       className="ReadingDrill__CardBackContainer"
       onTouchStart={onAffirmationSwipeStart}
       onTouchMove={onAffirmationSwipeMove}
       onTouchEnd={onAffirmationSwipeEnd}
+      key="ReadingDrillPinyin"
     >
       <div className="ReadingDrill__CardBack">
         <div>{remainingCards[0].pinyin}</div>
@@ -55,6 +60,7 @@ const ReadingDrill = ({
     <AffirmationSwipeIndicator
       selectedSwipeDirection={selectedSwipeDirection}
       normalizedDelta={normalizedDelta}
+      key="AffirmationSwipeIndicator"
     />,
   ];
 };

@@ -12,14 +12,15 @@ export default ({
   onHome,
   onSelectSwipeDirection,
 }) => [
-  <Header background="blue">Settings</Header>,
-  <HomeButton color="blue" onClick={onHome} />,
-  <Section header="Correct Answer Swipe Direction">
+  <Header background="blue" key="Header">Settings</Header>,
+  <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
+  <Section header="Correct Answer Swipe Direction" key="SwipeDirectionSection">
     {
       DIRECTIONS.map((direction) => (
         <Radio
           checked={direction === selectedSwipeDirection}
           onClick={() => onSelectSwipeDirection(direction)}
+          key={direction}
         >
           {direction}
         </Radio>

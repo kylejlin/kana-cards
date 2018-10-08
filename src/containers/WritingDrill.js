@@ -24,22 +24,23 @@ export default ({
 }) => {
   if (isTopCardRevealed) {
     return [
-      <Header background="blue">{deckName}</Header>,
-      <HomeButton color="blue" onClick={onHome}/>,
+      <Header background="blue" key="Header">{deckName}</Header>,
+      <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
       <canvas
-        key="canvas"
         onTouchStart={onAffirmationSwipeStart}
         onTouchMove={onAffirmationSwipeMove}
         onTouchEnd={onAffirmationSwipeEnd}
         width={window.innerWidth}
         height={window.innerHeight * 0.62}
         ref={canvasRef}
+        key="canvas"
       />,
       <div
         className="WritingDrill__CharacterContainer"
         onTouchStart={onAffirmationSwipeStart}
         onTouchMove={onAffirmationSwipeMove}
         onTouchEnd={onAffirmationSwipeEnd}
+        key="WritingDrillCharacters"
       >
         <div className="WritingDrill__Characters">
           {remainingCards[0].characters}
@@ -48,14 +49,14 @@ export default ({
       <AffirmationSwipeIndicator
         selectedSwipeDirection={selectedSwipeDirection}
         normalizedDelta={normalizedDelta}
+        key="AffirmationSwipeIndicator"
       />,
     ];
   }
   return [
-    <Header background="blue">{deckName}</Header>,
-    <HomeButton color="blue" onClick={onHome}/>,
+    <Header background="blue" key="Header">{deckName}</Header>,
+    <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
     <canvas
-      key="canvas"
       onTouchStart={onPenStart}
       onTouchMove={onPenMove}
       onMouseDown={onPenStart}
@@ -64,8 +65,13 @@ export default ({
       width={window.innerWidth}
       height={window.innerHeight * 0.62}
       ref={canvasRef}
+      key="canvas"
     />,
-    <div className="WritingDrill__Pinyin" onClick={onReveal}>
+    <div
+      className="WritingDrill__Pinyin"
+      onClick={onReveal}
+      key="WritingDrillPinyin"
+    >
       {remainingCards[0].pinyin}
     </div>,
   ];

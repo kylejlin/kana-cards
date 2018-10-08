@@ -9,15 +9,15 @@ export default ({
   onSettings,
   onSelect,
 }) => [
-  <Header background="white">Lessons</Header>,
-  <SettingsButton onClick={onSettings} />,
+  <Header background="white" key="Header">Lessons</Header>,
+  <SettingsButton onClick={onSettings} key="SettingsButton" />,
 
-  (
+  ...(
     decks.map(deck => (
       <Button
         modifierName="blue shadow"
-        key={deck.name}
         onClick={() => onSelect(deck)}
+        key={deck.name}
       >
         {deck.name}
       </Button>
