@@ -1,9 +1,9 @@
 import React from 'react';
-import '../styles/Radio.css';
+import '../styles/Checkbox.css';
 
 export default ({ children, checked, onClick }) => (
   <div
-    className={'Radio' + (checked ? ' Radio--checked' : '')}
+    className={'Checkbox' + (checked ? ' Checkbox--checked' : '')}
     onClick={onClick}
   >
     {children}

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import HomeButton from '../components/HomeButton';
 import Section from '../components/Section';
-import Radio from '../components/Radio';
+import Checkbox from '../components/Checkbox';
 
 const DIRECTIONS = ['Right', 'Left', 'Up', 'Down'];
 
@@ -17,13 +17,13 @@ export default ({
   <Section header="Correct Answer Swipe Direction" key="SwipeDirectionSection">
     {
       DIRECTIONS.map((direction) => (
-        <Radio
+        <Checkbox
           checked={direction === selectedSwipeDirection}
           onClick={() => onSelectSwipeDirection(direction)}
           key={direction}
         >
           {direction}
-        </Radio>
+        </Checkbox>
       ))
     }
   </Section>,
