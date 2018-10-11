@@ -16,6 +16,9 @@ const SIMULATED_SWIPE_PAUSE_FACTOR = 0.2;
 
 const PEN_STROKE_WIDTH = 2;
 
+const PEN_GUESS_COLOR = '#000088';
+const PEN_CORRECTION_COLOR = '#0088FF';
+
 const SUPPORTS_TOUCH = 'ontouchstart' in window;
 
 class CardsAgainstIlliteracy extends React.Component {
@@ -28,12 +31,14 @@ class CardsAgainstIlliteracy extends React.Component {
       displayedDeckTypes: localStorage.displayedDeckTypes
         ? JSON.parse(localStorage.displayedDeckTypes)
         : { Phrases: true, Essentials: true },
+      areWritingCorrectionsEnabled: localStorage.areWritingCorrectionsEnabled === 'true',
     };
 
     [
       'onSettings',
       'onSelectSwipeDirection',
       'onToggleDeckTypeDisplay',
+      'onToggleWritingCorrections',
       'onDeckSelect',
       'onDrillSelect',
       'onCardReveal',
@@ -75,9 +80,12 @@ class CardsAgainstIlliteracy extends React.Component {
         <SettingsMenu
           selectedSwipeDirection={this.state.selectedSwipeDirection}
           displayedDeckTypes={this.state.displayedDeckTypes}
+          areWritingCorrectionsEnabled={this.state.areWritingCorrectionsEnabled}
+
           onHome={this.onHome}
           onSelectSwipeDirection={this.onSelectSwipeDirection}
           onToggleDeckTypeDisplay={this.onToggleDeckTypeDisplay}
+          onToggleWritingCorrections={this.onToggleWritingCorrections}
         />
       );
     } else if (type === 'DECK_MENU') {
@@ -141,6 +149,7 @@ class CardsAgainstIlliteracy extends React.Component {
         isTopCardRevealed,
         selectedSwipeDirection,
         normalizedDelta,
+        areWritingCorrectionsEnabled,
       } = this.state;
 
       return (
@@ -150,6 +159,7 @@ class CardsAgainstIlliteracy extends React.Component {
           isTopCardRevealed={isTopCardRevealed}
           selectedSwipeDirection={selectedSwipeDirection}
           normalizedDelta={normalizedDelta}
+          areWritingCorrectionsEnabled={areWritingCorrectionsEnabled}
 
           onHome={this.onHome}
           onPenStart={this.onPenStart}
@@ -188,6 +198,14 @@ class CardsAgainstIlliteracy extends React.Component {
       displayedDeckTypes,
     });
     localStorage.displayedDeckTypes = JSON.stringify(displayedDeckTypes);
+  }
+
+  onToggleWritingCorrections() {
+    const areWritingCorrectionsEnabled = !this.state.areWritingCorrectionsEnabled;
+    this.setState({
+      areWritingCorrectionsEnabled,
+    });
+    localStorage.areWritingCorrectionsEnabled = areWritingCorrectionsEnabled;
   }
 
   getDisplayedDecks() {
@@ -408,7 +426,7 @@ class CardsAgainstIlliteracy extends React.Component {
       y: adjustedY,
     };
     const ctx = this.canvasRef.current.getContext('2d');
-    ctx.fillStyle = '#000088';
+    ctx.fillStyle = this.state.isTopCardRevealed ? PEN_CORRECTION_COLOR : PEN_GUESS_COLOR;
     ctx.fillRect(
       clientX,
       clientY - offsetY,
@@ -434,7 +452,7 @@ class CardsAgainstIlliteracy extends React.Component {
     ctx.lineTo(clientX, adjustedY);
     ctx.closePath();
     ctx.lineWidth = PEN_STROKE_WIDTH;
-    ctx.strokeStyle = '#000088';
+    ctx.strokeStyle = this.state.isTopCardRevealed ? PEN_CORRECTION_COLOR : PEN_GUESS_COLOR;
     ctx.stroke();
     this.previousPenLocation = {
       x: clientX,

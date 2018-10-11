@@ -10,6 +10,7 @@ export default ({
   isTopCardRevealed,
   selectedSwipeDirection,
   normalizedDelta,
+  areWritingCorrectionsEnabled,
 
   onHome,
   onPenStart,
@@ -27,9 +28,15 @@ export default ({
       <Header background="blue" key="Header">{deckName}</Header>,
       <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
       <canvas
-        onTouchStart={onAffirmationSwipeStart}
-        onTouchMove={onAffirmationSwipeMove}
-        onTouchEnd={onAffirmationSwipeEnd}
+        onTouchStart={
+          areWritingCorrectionsEnabled ? onPenStart : onAffirmationSwipeStart
+        }
+        onTouchMove={
+          areWritingCorrectionsEnabled ? onPenMove : onAffirmationSwipeMove
+        }
+        onTouchEnd={
+          areWritingCorrectionsEnabled ? onPenEnd : onAffirmationSwipeEnd
+        }
         width={window.innerWidth}
         height={window.innerHeight * 0.62}
         ref={canvasRef}
