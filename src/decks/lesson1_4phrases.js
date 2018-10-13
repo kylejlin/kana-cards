@@ -24,7 +24,7 @@ export default {
     {
       characters: '我教你',
       meaning: 'I teach you',
-      pinyin: 'wǒ jiào nǐ'
+      pinyin: 'wǒ jiāo nǐ'
     },
     {
       characters: '得',

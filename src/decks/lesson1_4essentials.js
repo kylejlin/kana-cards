@@ -19,7 +19,7 @@ export default {
     {
       characters: '教',
       meaning: 'teach',
-      pinyin: 'jiào'
+      pinyin: 'jiāo'
     },
     {
       characters: '得',
