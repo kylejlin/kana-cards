@@ -24,45 +24,46 @@ const ReadingDrill = ({
   onAffirmationSwipeEnd,
 }) => {
   if (!isTopCardRevealed) {
-    return [
-      <Header background="blue" key="Header">{deckName}</Header>,
-      <HomeButton color="blue" onClick={onHome} key="HomeButton"/>,
+    return (
+      <>
+        <Header background="blue">{deckName}</Header>
+        <HomeButton color="blue" onClick={onHome} />
 
-      <div
-        className="ReadingDrill__CardFrontContainer"
-        onClick={onReveal}
-        key="ReadingDrillCharacters"
-      >
-        <div className={getCardFrontClassName(remainingCards[0])}>
-          {remainingCards[0].characters}
+        <div
+          className="ReadingDrill__CardFrontContainer"
+          onClick={onReveal}
+        >
+          <div className={getCardFrontClassName(remainingCards[0])}>
+            {remainingCards[0].characters}
+          </div>
         </div>
-      </div>,
-    ];
+      </>
+    );
   }
 
-  return [
-    <Header background="blue" key="Header">{deckName}</Header>,
-    <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
+  return (
+    <>
+      <Header background="blue">{deckName}</Header>
+      <HomeButton color="blue" onClick={onHome} />
 
-    <div
-      className="ReadingDrill__CardBackContainer"
-      onTouchStart={onAffirmationSwipeStart}
-      onTouchMove={onAffirmationSwipeMove}
-      onTouchEnd={onAffirmationSwipeEnd}
-      key="ReadingDrillPinyin"
-    >
-      <div className="ReadingDrill__CardBack">
-        <div>{remainingCards[0].pinyin}</div>
-        <div>({remainingCards[0].meaning})</div>
+      <div
+        className="ReadingDrill__CardBackContainer"
+        onTouchStart={onAffirmationSwipeStart}
+        onTouchMove={onAffirmationSwipeMove}
+        onTouchEnd={onAffirmationSwipeEnd}
+      >
+        <div className="ReadingDrill__CardBack">
+          <div>{remainingCards[0].pinyin}</div>
+          <div>({remainingCards[0].meaning})</div>
+        </div>
       </div>
-    </div>,
 
-    <AffirmationSwipeIndicator
-      selectedSwipeDirection={selectedSwipeDirection}
-      normalizedDelta={normalizedDelta}
-      key="AffirmationSwipeIndicator"
-    />,
-  ];
+      <AffirmationSwipeIndicator
+        selectedSwipeDirection={selectedSwipeDirection}
+        normalizedDelta={normalizedDelta}
+      />
+    </>
+  );
 };
 
 export default ReadingDrill;

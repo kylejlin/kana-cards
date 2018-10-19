@@ -9,18 +9,20 @@ export default ({
 
   onSettings,
   onSelect,
-}) => [
-  <Header background="white" key="Header">Lessons</Header>,
-  <SettingsButton onClick={onSettings} key="SettingsButton" />,
-  <Body key="Body">
-    {decks.map(deck => (
-      <Button
-        modifierName="blue shadow"
-        onClick={() => onSelect(deck)}
-        key={deck.name}
-      >
-        {deck.name}
-      </Button>
-    ))}
-  </Body>,
-];
+}) => (
+  <>
+    <Header background="white">Lessons</Header>
+    <SettingsButton onClick={onSettings} />
+    <Body>
+      {decks.map(deck => (
+        <Button
+          modifierName="blue shadow"
+          onClick={() => onSelect(deck)}
+          key={deck.name}
+        >
+          {deck.name}
+        </Button>
+      ))}
+    </Body>
+  </>
+);

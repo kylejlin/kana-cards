@@ -17,43 +17,45 @@ export default ({
   onSelectSwipeDirection,
   onToggleDeckTypeDisplay,
   onToggleWritingCorrections,
-}) => [
-  <Header background="blue" key="Header">Settings</Header>,
-  <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
-  <Body>
-    <Section header="Correct Answer Swipe Direction" key="SwipeDirectionSection">
-      {
-        DIRECTIONS.map((direction) => (
-          <Checkbox
-            checked={direction === selectedSwipeDirection}
-            onClick={() => onSelectSwipeDirection(direction)}
-            key={direction}
-          >
-            {direction}
-          </Checkbox>
-        ))
-      }
-    </Section>
-    <Section header="Decks to Display" key="DeckSection">
-      {
-        DECK_TYPES.map((deckType) => (
-          <Checkbox
-            checked={displayedDeckTypes[deckType]}
-            onClick={() => onToggleDeckTypeDisplay(deckType)}
-            key={deckType}
-          >
-            {deckType}
-          </Checkbox>
-        ))
-      }
-    </Section>
-    <Section header="Writing Corrections" key="WritingCorrectionSectin">
-      <Checkbox
-        checked={areWritingCorrectionsEnabled}
-        onClick={onToggleWritingCorrections}
-      >
-        Enabled?
-      </Checkbox>
-    </Section>
-  </Body>
-];
+}) => (
+  <>
+    <Header background="blue">Settings</Header>
+    <HomeButton color="blue" onClick={onHome} />
+    <Body>
+      <Section header="Correct Answer Swipe Direction">
+        {
+          DIRECTIONS.map((direction) => (
+            <Checkbox
+              checked={direction === selectedSwipeDirection}
+              onClick={() => onSelectSwipeDirection(direction)}
+              key={direction}
+            >
+              {direction}
+            </Checkbox>
+          ))
+        }
+      </Section>
+      <Section header="Decks to Display">
+        {
+          DECK_TYPES.map((deckType) => (
+            <Checkbox
+              checked={displayedDeckTypes[deckType]}
+              onClick={() => onToggleDeckTypeDisplay(deckType)}
+              key={deckType}
+            >
+              {deckType}
+            </Checkbox>
+          ))
+        }
+      </Section>
+      <Section header="Writing Corrections">
+        <Checkbox
+          checked={areWritingCorrectionsEnabled}
+          onClick={onToggleWritingCorrections}
+        >
+          Enabled?
+        </Checkbox>
+      </Section>
+    </Body>
+  </>
+);

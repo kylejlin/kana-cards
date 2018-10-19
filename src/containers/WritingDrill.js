@@ -24,62 +24,61 @@ export default ({
   canvasRef,
 }) => {
   if (isTopCardRevealed) {
-    return [
-      <Header background="blue" key="Header">{deckName}</Header>,
-      <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
+    return (
+      <>
+        <Header background="blue">{deckName}</Header>
+        <HomeButton color="blue" onClick={onHome} />
+        <canvas
+          onTouchStart={
+            areWritingCorrectionsEnabled ? onPenStart : onAffirmationSwipeStart
+          }
+          onTouchMove={
+            areWritingCorrectionsEnabled ? onPenMove : onAffirmationSwipeMove
+          }
+          onTouchEnd={
+            areWritingCorrectionsEnabled ? onPenEnd : onAffirmationSwipeEnd
+          }
+          width={window.innerWidth}
+          height={window.innerHeight * 0.62}
+          ref={canvasRef}
+        />
+        <div
+          className="WritingDrill__CharacterContainer"
+          onTouchStart={onAffirmationSwipeStart}
+          onTouchMove={onAffirmationSwipeMove}
+          onTouchEnd={onAffirmationSwipeEnd}
+        >
+          <div className="WritingDrill__Characters">
+            {remainingCards[0].characters}
+          </div>
+        </div>
+        <AffirmationSwipeIndicator
+          selectedSwipeDirection={selectedSwipeDirection}
+          normalizedDelta={normalizedDelta}
+        />
+      </>
+    );
+  }
+  return (
+    <>
+      <Header background="blue">{deckName}</Header>
+      <HomeButton color="blue" onClick={onHome} />
       <canvas
-        onTouchStart={
-          areWritingCorrectionsEnabled ? onPenStart : onAffirmationSwipeStart
-        }
-        onTouchMove={
-          areWritingCorrectionsEnabled ? onPenMove : onAffirmationSwipeMove
-        }
-        onTouchEnd={
-          areWritingCorrectionsEnabled ? onPenEnd : onAffirmationSwipeEnd
-        }
+        onTouchStart={onPenStart}
+        onTouchMove={onPenMove}
+        onMouseDown={onPenStart}
+        onMouseMove={onPenMove}
+        onMouseUp={onPenEnd}
         width={window.innerWidth}
         height={window.innerHeight * 0.62}
         ref={canvasRef}
-        key="canvas"
-      />,
+      />
       <div
-        className="WritingDrill__CharacterContainer"
-        onTouchStart={onAffirmationSwipeStart}
-        onTouchMove={onAffirmationSwipeMove}
-        onTouchEnd={onAffirmationSwipeEnd}
-        key="WritingDrillCharacters"
+        className="WritingDrill__Pinyin"
+        onClick={onReveal}
       >
-        <div className="WritingDrill__Characters">
-          {remainingCards[0].characters}
-        </div>
-      </div>,
-      <AffirmationSwipeIndicator
-        selectedSwipeDirection={selectedSwipeDirection}
-        normalizedDelta={normalizedDelta}
-        key="AffirmationSwipeIndicator"
-      />,
-    ];
-  }
-  return [
-    <Header background="blue" key="Header">{deckName}</Header>,
-    <HomeButton color="blue" onClick={onHome} key="HomeButton" />,
-    <canvas
-      onTouchStart={onPenStart}
-      onTouchMove={onPenMove}
-      onMouseDown={onPenStart}
-      onMouseMove={onPenMove}
-      onMouseUp={onPenEnd}
-      width={window.innerWidth}
-      height={window.innerHeight * 0.62}
-      ref={canvasRef}
-      key="canvas"
-    />,
-    <div
-      className="WritingDrill__Pinyin"
-      onClick={onReveal}
-      key="WritingDrillPinyin"
-    >
-      {remainingCards[0].pinyin}
-    </div>,
-  ];
+        {remainingCards[0].pinyin}
+      </div>
+    </>
+  );
 };
