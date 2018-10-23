@@ -261,7 +261,9 @@ class CardsAgainstIlliteracy extends React.Component {
     });
   }
 
-  onAffirmationSwipeMove({ changedTouches }) {
+  onAffirmationSwipeMove(event) {
+    event.preventDefault();
+    const { changedTouches } = event;
     const { id } = this.state.startingTouch;
     const newTouch = Array.from(changedTouches)
       .find(t => t.identifier === id);
@@ -436,6 +438,7 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onPenMove(event) {
+    event.preventDefault();
     if (this.previousPenLocation === null) {
       return;
     }
