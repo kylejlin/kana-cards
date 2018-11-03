@@ -8,6 +8,8 @@ import lesson1_4phrases from './lesson1_4phrases';
 import lesson1_4essentials from './lesson1_4essentials';
 import lesson1_5phrases from './lesson1_5phrases';
 import lesson1_5essentials from './lesson1_5essentials';
+import lesson1_6phrases from './lesson1_6phrases';
+import lesson1_6essentials from './lesson1_6essentials';
 
 const productionDecks = [
   lesson1_1phrases,
@@ -19,6 +21,8 @@ const productionDecks = [
   lesson1_4essentials,
   lesson1_5phrases,
   lesson1_5essentials,
+  lesson1_6phrases,
+  lesson1_6essentials,
 ];
 
 const devDecks = [
