@@ -1,5 +1,5 @@
 .Body {
-  position: fixed;
+  position: absolute;
   top: 11vh;
   height: 89vh;
   width: 100vw;

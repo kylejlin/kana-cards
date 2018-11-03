@@ -1,5 +1,5 @@
 .SettingsButton {
-  position: fixed;
+  position: absolute;
   top: 1.5vh;
   right: 2vw;
   width: 6vh;
