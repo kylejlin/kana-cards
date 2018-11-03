@@ -38,6 +38,15 @@ export default ({
           onTouchEnd={
             areWritingCorrectionsEnabled ? onPenEnd : onAffirmationSwipeEnd
           }
+          onMouseDown={
+            areWritingCorrectionsEnabled ? onPenStart : onAffirmationSwipeStart
+          }
+          onMouseMove={
+            areWritingCorrectionsEnabled ? onPenMove : onAffirmationSwipeMove
+          }
+          onMouseUp={
+            areWritingCorrectionsEnabled ? onPenEnd : onAffirmationSwipeEnd
+          }
           width={window.innerWidth}
           height={window.innerHeight * 0.62}
           ref={canvasRef}
