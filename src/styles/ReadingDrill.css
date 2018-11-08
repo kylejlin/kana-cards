@@ -1,37 +1,30 @@
-.ReadingDrill__Button {
-  background-color: #008;
-  color: #fff;
-  font-size: 4vh;
-  padding: 3vh;
-  box-shadow: 0 0 0.1em 0.1em #000a;
-}
-
-.ReadingDrill__CardFrontContainer {
+.ReadingDrill__CharacterContainer {
   color: #008;
   text-align: center;
-  height: 88vh;
-  line-height: 88vh;
+  height: 62vh;
+  line-height: 62vh;
 }
 
-.ReadingDrill__CardFront {
-  font-size: 10em;
+.ReadingDrill__Character {
+  font-size: 22vh;
   line-height: normal;
   display: inline-block;
 }
 
-.ReadingDrill__CardFront--small {
-  font-size: 6em;
+.ReadingDrill__Character--small {
+  font-size: 16vh;
 }
 
-.ReadingDrill__CardBackContainer {
-  color: #008;
+.ReadingDrill__PinyinContainer {
   text-align: center;
+  height: 27vh;
+  line-height: 27vh;
+  background-color: #ddd;
+}
+
+.ReadingDrill__Pinyin {
+  display: inline-block;
   font-size: 5vh;
-  height: 88vh;
-  line-height: 88vh;
-}
-
-.ReadingDrill__CardBack {
+  color: #008;
   line-height: normal;
-  display: inline-block;
 }

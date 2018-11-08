@@ -1,14 +1,12 @@
-import React from 'react';
-import '../styles/ReadingDrill.css';
-import HomeButton from '../components/HomeButton';
-import Header from '../components/Header';
-import AffirmationSwipeIndicator from '../components/AffirmationSwipeIndicator';
+import React from "react";
+import "../styles/ReadingDrill.css";
+import HomeButton from "../components/HomeButton";
+import Header from "../components/Header";
+import AffirmationSwipeIndicator from "../components/AffirmationSwipeIndicator";
 
-const getCardFrontClassName = card => (
-  'ReadingDrill__CardFront' + (
-    card.characters.length > 4 ? ' ReadingDrill__CardFront--small' : ''
-  )
-);
+const getCardFrontClassName = card =>
+  "ReadingDrill__Character" +
+  (card.characters.length > 4 ? " ReadingDrill__Character--small" : "");
 
 const ReadingDrill = ({
   deckName,
@@ -21,7 +19,7 @@ const ReadingDrill = ({
   onReveal,
   onAffirmationSwipeStart,
   onAffirmationSwipeMove,
-  onAffirmationSwipeEnd,
+  onAffirmationSwipeEnd
 }) => {
   if (!isTopCardRevealed) {
     return (
@@ -29,14 +27,13 @@ const ReadingDrill = ({
         <Header background="blue">{deckName}</Header>
         <HomeButton color="blue" onClick={onHome} />
 
-        <div
-          className="ReadingDrill__CardFrontContainer"
-          onClick={onReveal}
-        >
+        <div className="ReadingDrill__CharacterContainer" onClick={onReveal}>
           <div className={getCardFrontClassName(remainingCards[0])}>
             {remainingCards[0].characters}
           </div>
         </div>
+
+        <div className="ReadingDrill__PinyinContainer" onClick={onReveal} />
       </>
     );
   }
@@ -47,12 +44,23 @@ const ReadingDrill = ({
       <HomeButton color="blue" onClick={onHome} />
 
       <div
-        className="ReadingDrill__CardBackContainer"
+        className="ReadingDrill__CharacterContainer"
         onTouchStart={onAffirmationSwipeStart}
         onTouchMove={onAffirmationSwipeMove}
         onTouchEnd={onAffirmationSwipeEnd}
       >
-        <div className="ReadingDrill__CardBack">
+        <div className={getCardFrontClassName(remainingCards[0])}>
+          {remainingCards[0].characters}
+        </div>
+      </div>
+
+      <div
+        className="ReadingDrill__PinyinContainer"
+        onTouchStart={onAffirmationSwipeStart}
+        onTouchMove={onAffirmationSwipeMove}
+        onTouchEnd={onAffirmationSwipeEnd}
+      >
+        <div className="ReadingDrill__Pinyin">
           <div>{remainingCards[0].pinyin}</div>
           <div>({remainingCards[0].meaning})</div>
         </div>
