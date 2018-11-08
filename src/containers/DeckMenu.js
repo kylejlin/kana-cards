@@ -1,8 +1,8 @@
-import React from 'react';
-import Header from '../components/Header';
-import SettingsButton from '../components/SettingsButton';
-import Body from '../components/Body';
-import Button from '../components/Button';
+import React from "react";
+import Header from "../components/Header";
+import SettingsButton from "../components/SettingsButton";
+import Body from "../components/Body";
+import Button from "../components/Button";
 
 export default ({
   decks,

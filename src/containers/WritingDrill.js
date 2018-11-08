@@ -1,8 +1,8 @@
-import React from 'react';
-import '../styles/WritingDrill.css';
-import HomeButton from '../components/HomeButton';
-import Header from '../components/Header';
-import AffirmationSwipeIndicator from '../components/AffirmationSwipeIndicator';
+import React from "react";
+import "../styles/WritingDrill.css";
+import HomeButton from "../components/HomeButton";
+import Header from "../components/Header";
+import AffirmationSwipeIndicator from "../components/AffirmationSwipeIndicator";
 
 export default ({
   deckName,
@@ -82,10 +82,7 @@ export default ({
         height={window.innerHeight * 0.62}
         ref={canvasRef}
       />
-      <div
-        className="WritingDrill__Pinyin"
-        onClick={onReveal}
-      >
+      <div className="WritingDrill__Pinyin" onClick={onReveal}>
         {remainingCards[0].pinyin}
       </div>
     </>

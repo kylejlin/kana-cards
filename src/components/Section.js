@@ -1,5 +1,5 @@
-import React from 'react';
-import '../styles/Section.css';
+import React from "react";
+import "../styles/Section.css";
 
 export default ({ header, children }) => (
   <div className="Section">

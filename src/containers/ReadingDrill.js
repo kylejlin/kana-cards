@@ -19,7 +19,7 @@ const ReadingDrill = ({
   onReveal,
   onAffirmationSwipeStart,
   onAffirmationSwipeMove,
-  onAffirmationSwipeEnd
+  onAffirmationSwipeEnd,
 }) => {
   if (!isTopCardRevealed) {
     return (
