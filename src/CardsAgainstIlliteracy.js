@@ -1,59 +1,60 @@
-import React from 'react';
-import decks from './decks/index';
-import randomlySort from './randomlySort';
-import SettingsMenu from './containers/SettingsMenu';
-import DeckMenu from './containers/DeckMenu';
-import DrillMenu from './containers/DrillMenu';
-import ReadingDrill from './containers/ReadingDrill';
-import WritingDrill from './containers/WritingDrill';
-import PostDrillMenu from './containers/PostDrillMenu';
+import React from "react";
+import decks from "./decks/index";
+import randomlySort from "./randomlySort";
+import SettingsMenu from "./containers/SettingsMenu";
+import DeckMenu from "./containers/DeckMenu";
+import DrillMenu from "./containers/DrillMenu";
+import ReadingDrill from "./containers/ReadingDrill";
+import WritingDrill from "./containers/WritingDrill";
+import PostDrillMenu from "./containers/PostDrillMenu";
 
-const HORIZONTAL_SWIPE_SIZE = window.innerWidth * 0.30;
-const VERTICAL_SWIPE_SIZE = window.innerHeight * 0.20;
+const HORIZONTAL_SWIPE_SIZE = window.innerWidth * 0.3;
+const VERTICAL_SWIPE_SIZE = window.innerHeight * 0.2;
 
 const SIMULATED_SWIPE_DURATION = 0.15e3;
 const SIMULATED_SWIPE_PAUSE_FACTOR = 0.2;
 
 const PEN_STROKE_WIDTH = 2;
 
-const PEN_GUESS_COLOR = '#000088';
-const PEN_CORRECTION_COLOR = '#0088FF';
+const PEN_GUESS_COLOR = "#000088";
+const PEN_CORRECTION_COLOR = "#0088FF";
 
-const SUPPORTS_TOUCH = 'ontouchstart' in window;
+const SUPPORTS_TOUCH = "ontouchstart" in window;
 
 class CardsAgainstIlliteracy extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      type: 'DECK_MENU',
-      selectedSwipeDirection: localStorage.selectedSwipeDirection || 'Right',
+      type: "DECK_MENU",
+      selectedSwipeDirection: localStorage.selectedSwipeDirection || "Right",
       displayedDeckTypes: localStorage.displayedDeckTypes
         ? JSON.parse(localStorage.displayedDeckTypes)
         : { Phrases: true, Essentials: true },
-      areWritingCorrectionsEnabled: localStorage.areWritingCorrectionsEnabled === 'true',
+      areWritingCorrectionsEnabled:
+        localStorage.areWritingCorrectionsEnabled === "true",
     };
 
     [
-      'onSettings',
-      'onSelectSwipeDirection',
-      'onToggleDeckTypeDisplay',
-      'onToggleWritingCorrections',
-      'onDeckSelect',
-      'onDrillSelect',
-      'onCardReveal',
-      'onAffirmationSwipeStart',
-      'onAffirmationSwipeMove',
-      'onAffirmationSwipeEnd',
-      'onKeyUp',
-      'onCardCorrect',
-      'onCardIncorrect',
-      'onDrillRestart',
-      'onHome',
-      'onPenStart',
-      'onPenMove',
-      'onPenEnd',
-    ].forEach((methodName) => {
+      "onSettings",
+      "onSelectSwipeDirection",
+      "onToggleDeckTypeDisplay",
+      "onToggleWritingCorrections",
+      "onDeckSelect",
+      "onDrillSelect",
+      "onCardReveal",
+      "onAffirmationSwipeStart",
+      "onAffirmationSwipeMove",
+      "onAffirmationSwipeEnd",
+      "onKeyUp",
+      "onCardCorrect",
+      "onCardIncorrect",
+      "onDrillRestart",
+      "onHome",
+      "onPenStart",
+      "onPenMove",
+      "onPenEnd",
+    ].forEach(methodName => {
       this[methodName] = this[methodName].bind(this);
     });
 
@@ -63,53 +64,50 @@ class CardsAgainstIlliteracy extends React.Component {
 
   componentDidMount() {
     if (!SUPPORTS_TOUCH) {
-      window.addEventListener('keyup', this.onKeyUp);
+      window.addEventListener("keyup", this.onKeyUp);
     }
   }
 
   componentWillUnmount() {
     if (!SUPPORTS_TOUCH) {
-      window.removeEventListener('keyup', this.onKeyUp);
+      window.removeEventListener("keyup", this.onKeyUp);
     }
   }
 
   render() {
     const { type } = this.state;
-    if (type === 'SETTINGS_MENU') {
+    if (type === "SETTINGS_MENU") {
       return (
         <SettingsMenu
           selectedSwipeDirection={this.state.selectedSwipeDirection}
           displayedDeckTypes={this.state.displayedDeckTypes}
           areWritingCorrectionsEnabled={this.state.areWritingCorrectionsEnabled}
-
           onHome={this.onHome}
           onSelectSwipeDirection={this.onSelectSwipeDirection}
           onToggleDeckTypeDisplay={this.onToggleDeckTypeDisplay}
           onToggleWritingCorrections={this.onToggleWritingCorrections}
         />
       );
-    } else if (type === 'DECK_MENU') {
+    } else if (type === "DECK_MENU") {
       return (
         <DeckMenu
           decks={this.getDisplayedDecks()}
-
           onSettings={this.onSettings}
           onSelect={this.onDeckSelect}
         />
       );
-    } else if (type === 'DRILL_MENU') {
+    } else if (type === "DRILL_MENU") {
       const { name } = this.state.deck;
       return (
         <DrillMenu
           deckName={name}
-
           onDrillSelect={this.onDrillSelect}
           onHome={this.onHome}
         />
       );
     } else if (
-      ['READING_DRILL', 'WRITING_DRILL'].includes(type)
-      && this.state.remainingCards.length === 0
+      ["READING_DRILL", "WRITING_DRILL"].includes(type) &&
+      this.state.remainingCards.length === 0
     ) {
       return (
         <PostDrillMenu
@@ -118,7 +116,7 @@ class CardsAgainstIlliteracy extends React.Component {
           onHome={this.onHome}
         />
       );
-    } else if (type === 'READING_DRILL') {
+    } else if (type === "READING_DRILL") {
       const {
         deckName,
         remainingCards,
@@ -134,7 +132,6 @@ class CardsAgainstIlliteracy extends React.Component {
           isTopCardRevealed={isTopCardRevealed}
           selectedSwipeDirection={selectedSwipeDirection}
           normalizedDelta={normalizedDelta}
-
           onHome={this.onHome}
           onReveal={this.onCardReveal}
           onAffirmationSwipeStart={this.onAffirmationSwipeStart}
@@ -142,7 +139,7 @@ class CardsAgainstIlliteracy extends React.Component {
           onAffirmationSwipeEnd={this.onAffirmationSwipeEnd}
         />
       );
-    } else if (type === 'WRITING_DRILL') {
+    } else if (type === "WRITING_DRILL") {
       const {
         deckName,
         remainingCards,
@@ -160,7 +157,6 @@ class CardsAgainstIlliteracy extends React.Component {
           selectedSwipeDirection={selectedSwipeDirection}
           normalizedDelta={normalizedDelta}
           areWritingCorrectionsEnabled={areWritingCorrectionsEnabled}
-
           onHome={this.onHome}
           onPenStart={this.onPenStart}
           onPenMove={this.onPenMove}
@@ -169,7 +165,6 @@ class CardsAgainstIlliteracy extends React.Component {
           onAffirmationSwipeStart={this.onAffirmationSwipeStart}
           onAffirmationSwipeMove={this.onAffirmationSwipeMove}
           onAffirmationSwipeEnd={this.onAffirmationSwipeEnd}
-
           canvasRef={this.canvasRef}
         />
       );
@@ -178,7 +173,7 @@ class CardsAgainstIlliteracy extends React.Component {
 
   onSettings() {
     this.setState({
-      type: 'SETTINGS_MENU',
+      type: "SETTINGS_MENU",
     });
   }
 
@@ -201,7 +196,8 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onToggleWritingCorrections() {
-    const areWritingCorrectionsEnabled = !this.state.areWritingCorrectionsEnabled;
+    const areWritingCorrectionsEnabled = !this.state
+      .areWritingCorrectionsEnabled;
     this.setState({
       areWritingCorrectionsEnabled,
     });
@@ -209,22 +205,23 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   getDisplayedDecks() {
-    const displayedDeckTypes = Object.keys(this.state.displayedDeckTypes)
-      .filter(key => this.state.displayedDeckTypes[key]);
-    return decks.filter(deck => (
-      displayedDeckTypes.some(deckType => deck.name.includes(deckType))
-    ));
+    const displayedDeckTypes = Object.keys(
+      this.state.displayedDeckTypes,
+    ).filter(key => this.state.displayedDeckTypes[key]);
+    return decks.filter(deck =>
+      displayedDeckTypes.some(deckType => deck.name.includes(deckType)),
+    );
   }
 
   onDeckSelect(deck) {
     this.setState({
-      type: 'DRILL_MENU',
+      type: "DRILL_MENU",
       deck,
     });
   }
 
   onDrillSelect(drill) {
-    if (drill === 'READING_DRILL' || drill === 'WRITING_DRILL') {
+    if (drill === "READING_DRILL" || drill === "WRITING_DRILL") {
       const { name, cards } = this.state.deck;
       this.setState({
         type: drill,
@@ -242,18 +239,19 @@ class CardsAgainstIlliteracy extends React.Component {
       return;
     }
 
-    const isSwipeDirectionHorizontal = ['Right', 'Left']
-      .includes(this.state.selectedSwipeDirection);
+    const isSwipeDirectionHorizontal = ["Right", "Left"].includes(
+      this.state.selectedSwipeDirection,
+    );
 
     const touch = isSwipeDirectionHorizontal
       ? {
-        id: changedTouches[0].identifier,
-        x: changedTouches[0].clientX,
-      }
+          id: changedTouches[0].identifier,
+          x: changedTouches[0].clientX,
+        }
       : {
-        id: changedTouches[0].identifier,
-        y: changedTouches[0].clientY,
-      };
+          id: changedTouches[0].identifier,
+          y: changedTouches[0].clientY,
+        };
 
     this.setState({
       startingTouch: touch,
@@ -265,13 +263,13 @@ class CardsAgainstIlliteracy extends React.Component {
     event.preventDefault();
     const { changedTouches } = event;
     const { id } = this.state.startingTouch;
-    const newTouch = Array.from(changedTouches)
-      .find(t => t.identifier === id);
+    const newTouch = Array.from(changedTouches).find(t => t.identifier === id);
     if (!newTouch) {
       return;
     }
-    const isSwipeDirectionHorizontal = ['Right', 'Left']
-      .includes(this.state.selectedSwipeDirection);
+    const isSwipeDirectionHorizontal = ["Right", "Left"].includes(
+      this.state.selectedSwipeDirection,
+    );
     if (isSwipeDirectionHorizontal) {
       const deltaX = newTouch.clientX - this.state.startingTouch.x;
       const normalizedDelta = Math.max(
@@ -300,38 +298,38 @@ class CardsAgainstIlliteracy extends React.Component {
       normalizedDelta: 0,
     });
     if (
-      (selectedSwipeDirection === 'Right' && normalizedDelta === -1)
-        || (selectedSwipeDirection === 'Left' && normalizedDelta === 1)
-        || (selectedSwipeDirection === 'Up' && normalizedDelta === 1)
-        || (selectedSwipeDirection === 'Down' && normalizedDelta === -1)
+      (selectedSwipeDirection === "Right" && normalizedDelta === -1) ||
+      (selectedSwipeDirection === "Left" && normalizedDelta === 1) ||
+      (selectedSwipeDirection === "Up" && normalizedDelta === 1) ||
+      (selectedSwipeDirection === "Down" && normalizedDelta === -1)
     ) {
       this.onCardIncorrect();
     } else if (
-      (selectedSwipeDirection === 'Right' && normalizedDelta === 1)
-        || (selectedSwipeDirection === 'Left' && normalizedDelta === -1)
-        || (selectedSwipeDirection === 'Up' && normalizedDelta === -1)
-        || (selectedSwipeDirection === 'Down' && normalizedDelta === 1)
+      (selectedSwipeDirection === "Right" && normalizedDelta === 1) ||
+      (selectedSwipeDirection === "Left" && normalizedDelta === -1) ||
+      (selectedSwipeDirection === "Up" && normalizedDelta === -1) ||
+      (selectedSwipeDirection === "Down" && normalizedDelta === 1)
     ) {
       this.onCardCorrect();
     }
   }
 
   onKeyUp({ key }) {
-
     if (this.state.lessonId !== null && this.state.isTopCardRevealed) {
-      const isSwipeDirectionHorizontal = ['Right', 'Left']
-        .includes(this.state.selectedSwipeDirection);
+      const isSwipeDirectionHorizontal = ["Right", "Left"].includes(
+        this.state.selectedSwipeDirection,
+      );
 
       if (isSwipeDirectionHorizontal) {
-        if (key === 'ArrowRight' || key === 'Right') {
+        if (key === "ArrowRight" || key === "Right") {
           this.simulateRightSwipe();
-        } else if (key === 'ArrowLeft' || key === 'Left') {
+        } else if (key === "ArrowLeft" || key === "Left") {
           this.simulateLeftSwipe();
         }
       } else {
-        if (key === 'ArrowUp' || key === 'Up') {
+        if (key === "ArrowUp" || key === "Up") {
           this.simulateUpSwipe();
-        } else if (key === 'ArrowDown' || key === 'Down') {
+        } else if (key === "ArrowDown" || key === "Down") {
           this.simulateDownSwipe();
         }
       }
@@ -346,9 +344,9 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onCardCorrect() {
-    if (this.state.type === 'WRITING_DRILL') {
+    if (this.state.type === "WRITING_DRILL") {
       const { width, height } = this.canvasRef.current;
-      const ctx = this.canvasRef.current.getContext('2d');
+      const ctx = this.canvasRef.current.getContext("2d");
       ctx.clearRect(0, 0, width, height);
     }
 
@@ -368,9 +366,9 @@ class CardsAgainstIlliteracy extends React.Component {
   }
 
   onCardIncorrect() {
-    if (this.state.type === 'WRITING_DRILL') {
+    if (this.state.type === "WRITING_DRILL") {
       const { width, height } = this.canvasRef.current;
-      const ctx = this.canvasRef.current.getContext('2d');
+      const ctx = this.canvasRef.current.getContext("2d");
       ctx.clearRect(0, 0, width, height);
     }
 
@@ -379,14 +377,15 @@ class CardsAgainstIlliteracy extends React.Component {
         return {
           remainingCards: prevState.remainingCards.slice(1),
           cardsToRepractice: prevState.cardsToRepractice.concat([
-            prevState.remainingCards[0]
+            prevState.remainingCards[0],
           ]),
           isTopCardRevealed: false,
         };
       }
       return {
-        remainingCards: randomlySort(prevState.cardsToRepractice
-          .concat([prevState.remainingCards[0]])),
+        remainingCards: randomlySort(
+          prevState.cardsToRepractice.concat([prevState.remainingCards[0]]),
+        ),
         cardsToRepractice: [],
         isTopCardRevealed: false,
       };
@@ -395,8 +394,8 @@ class CardsAgainstIlliteracy extends React.Component {
 
   onDrillRestart() {
     if (
-      this.state.type === 'READING_DRILL'
-      || this.state.type === 'WRITING_DRILL'
+      this.state.type === "READING_DRILL" ||
+      this.state.type === "WRITING_DRILL"
     ) {
       const deck = decks.find(d => d.name === this.state.deckName);
       const { name, cards } = deck;
@@ -413,22 +412,25 @@ class CardsAgainstIlliteracy extends React.Component {
 
   onHome() {
     this.setState({
-      type: 'DECK_MENU',
+      type: "DECK_MENU",
     });
   }
 
   onPenStart(event) {
-    const [clientX, clientY] = event.type === 'touchstart'
-      ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
-      : [event.clientX, event.clientY];
+    const [clientX, clientY] =
+      event.type === "touchstart"
+        ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
+        : [event.clientX, event.clientY];
     const offsetY = window.innerHeight * 0.11;
     const adjustedY = clientY - offsetY;
     this.previousPenLocation = {
       x: clientX,
       y: adjustedY,
     };
-    const ctx = this.canvasRef.current.getContext('2d');
-    ctx.fillStyle = this.state.isTopCardRevealed ? PEN_CORRECTION_COLOR : PEN_GUESS_COLOR;
+    const ctx = this.canvasRef.current.getContext("2d");
+    ctx.fillStyle = this.state.isTopCardRevealed
+      ? PEN_CORRECTION_COLOR
+      : PEN_GUESS_COLOR;
     ctx.fillRect(
       clientX,
       clientY - offsetY,
@@ -443,19 +445,22 @@ class CardsAgainstIlliteracy extends React.Component {
       return;
     }
 
-    const [clientX, clientY] = event.type === 'touchmove'
-      ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
-      : [event.clientX, event.clientY];
+    const [clientX, clientY] =
+      event.type === "touchmove"
+        ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
+        : [event.clientX, event.clientY];
     const offsetY = window.innerHeight * 0.11;
     const adjustedY = clientY - offsetY;
-    const ctx = this.canvasRef.current.getContext('2d');
+    const ctx = this.canvasRef.current.getContext("2d");
     ctx.fillRect(clientX, clientY - offsetY, 1, 1);
     ctx.beginPath();
     ctx.moveTo(this.previousPenLocation.x, this.previousPenLocation.y);
     ctx.lineTo(clientX, adjustedY);
     ctx.closePath();
     ctx.lineWidth = PEN_STROKE_WIDTH;
-    ctx.strokeStyle = this.state.isTopCardRevealed ? PEN_CORRECTION_COLOR : PEN_GUESS_COLOR;
+    ctx.strokeStyle = this.state.isTopCardRevealed
+      ? PEN_CORRECTION_COLOR
+      : PEN_GUESS_COLOR;
     ctx.stroke();
     this.previousPenLocation = {
       x: clientX,
@@ -475,7 +480,7 @@ class CardsAgainstIlliteracy extends React.Component {
       if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
         requestAnimationFrame(render);
       } else {
-        if (this.state.selectedSwipeDirection === 'Right') {
+        if (this.state.selectedSwipeDirection === "Right") {
           this.onCardCorrect();
         } else {
           this.onCardIncorrect();
@@ -496,7 +501,7 @@ class CardsAgainstIlliteracy extends React.Component {
       if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
         requestAnimationFrame(render);
       } else {
-        if (this.state.selectedSwipeDirection === 'Left') {
+        if (this.state.selectedSwipeDirection === "Left") {
           this.onCardCorrect();
         } else {
           this.onCardIncorrect();
@@ -517,7 +522,7 @@ class CardsAgainstIlliteracy extends React.Component {
       if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
         requestAnimationFrame(render);
       } else {
-        if (this.state.selectedSwipeDirection === 'Up') {
+        if (this.state.selectedSwipeDirection === "Up") {
           this.onCardCorrect();
         } else {
           this.onCardIncorrect();
@@ -538,7 +543,7 @@ class CardsAgainstIlliteracy extends React.Component {
       if (completionFactor < 1 + SIMULATED_SWIPE_PAUSE_FACTOR) {
         requestAnimationFrame(render);
       } else {
-        if (this.state.selectedSwipeDirection === 'Down') {
+        if (this.state.selectedSwipeDirection === "Down") {
           this.onCardCorrect();
         } else {
           this.onCardIncorrect();
