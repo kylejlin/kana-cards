@@ -43,17 +43,9 @@ export default class extends React.Component {
             onTouchEnd={
               areWritingCorrectionsEnabled ? onPenEnd : onAffirmationSwipeEnd
             }
-            onMouseDown={
-              areWritingCorrectionsEnabled
-                ? onPenStart
-                : onAffirmationSwipeStart
-            }
-            onMouseMove={
-              areWritingCorrectionsEnabled ? onPenMove : onAffirmationSwipeMove
-            }
-            onMouseUp={
-              areWritingCorrectionsEnabled ? onPenEnd : onAffirmationSwipeEnd
-            }
+            onMouseDown={areWritingCorrectionsEnabled ? onPenStart : NOOP}
+            onMouseMove={areWritingCorrectionsEnabled ? onPenMove : NOOP}
+            onMouseUp={areWritingCorrectionsEnabled ? onPenEnd : NOOP}
             width={window.innerWidth}
             height={window.innerHeight * 0.62}
             ref={canvasRef}
@@ -106,3 +98,5 @@ export default class extends React.Component {
     );
   }
 }
+
+const NOOP = () => {};
