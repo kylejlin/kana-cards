@@ -21,6 +21,7 @@ import lesson3_1phrases from "./lesson3_1phrases";
 import lesson3_2phrases from "./lesson3_2phrases";
 import lesson3_3phrases from "./lesson3_3phrases";
 import lesson3_4phrases from "./lesson3_4phrases";
+import lesson3_5phrases from "./lesson3_5phrases";
 
 const productionDecks = [
   lesson1_1phrases,
@@ -45,6 +46,7 @@ const productionDecks = [
   lesson3_2phrases,
   lesson3_3phrases,
   lesson3_4phrases,
+  lesson3_5phrases,
 ];
 
 const devDecks = [sample, ...productionDecks];
