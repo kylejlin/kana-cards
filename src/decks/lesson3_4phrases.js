@@ -52,9 +52,9 @@ export default {
       pinyin: "míngbái",
     },
     {
-      characters: "手",
-      meaning: "hand",
-      pinyin: "shǒu",
+      characters: "瘦",
+      meaning: "skinny",
+      pinyin: "shòu",
     },
     {
       characters: "忘了",
