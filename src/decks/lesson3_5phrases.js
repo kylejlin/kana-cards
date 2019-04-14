@@ -1,5 +1,5 @@
 export default {
-  name: "1.1 Phrases",
+  name: "3.5 Phrases",
   cards: [
     {
       characters: "帮忙",
