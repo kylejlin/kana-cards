@@ -1,9 +1,9 @@
 import React from "react";
 import "../styles/AffirmationSwipeIndicator.css";
-import { SwipeDirectionType } from "../types";
+import { SwipeDirection } from "../types";
 
 export interface Props {
-  selectedSwipeDirection: SwipeDirectionType;
+  selectedSwipeDirection: SwipeDirection;
   normalizedDelta: number;
 }
 

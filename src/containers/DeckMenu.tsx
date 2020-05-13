@@ -3,6 +3,7 @@ import Body from "../components/Body";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import SettingsButton from "../components/SettingsButton";
+import getDeckName from "../getDeckName";
 import { Deck } from "../types";
 
 export interface Props {
@@ -23,13 +24,13 @@ export default function DeckMenu({
       <Header background="white">Lessons</Header>
       <SettingsButton onClick={onSettings} />
       <Body>
-        {decks.map((deck) => (
+        {decks.map(deck => (
           <Button
             modifierName="blue shadow"
             onClick={() => onSelect(deck)}
-            key={deck.name}
+            key={deck}
           >
-            {deck.name}
+            {getDeckName(deck)}
           </Button>
         ))}
       </Body>

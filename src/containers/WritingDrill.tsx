@@ -2,20 +2,22 @@ import React from "react";
 import AffirmationSwipeIndicator from "../components/AffirmationSwipeIndicator";
 import Header from "../components/Header";
 import HomeButton from "../components/HomeButton";
+import getDeckName from "../getDeckName";
 import "../styles/WritingDrill.css";
 import {
   Card,
+  Deck,
   PointerDownEvent,
   PointerMoveEvent,
   PointerUpEvent,
-  SwipeDirectionType,
+  SwipeDirection,
 } from "../types";
 
 export interface Props {
-  deckName: string;
+  deck: Deck;
   remainingCards: Card[];
   isTopCardRevealed: boolean;
-  selectedSwipeDirection: SwipeDirectionType;
+  selectedSwipeDirection: SwipeDirection;
   normalizedDelta: number;
   areWritingCorrectionsEnabled: boolean;
 
@@ -36,7 +38,7 @@ export interface State {}
 export default class WritingDrill extends React.Component<Props, State> {
   render() {
     const {
-      deckName,
+      deck,
       remainingCards,
       isTopCardRevealed,
       selectedSwipeDirection,
@@ -53,19 +55,19 @@ export default class WritingDrill extends React.Component<Props, State> {
     } = this.props;
 
     const onPenStart = this.props.onPenStart as (
-      event: React.TouchEvent | React.MouseEvent
+      event: React.TouchEvent | React.MouseEvent,
     ) => void;
     const onPenMove = this.props.onPenMove as (
-      event: React.TouchEvent | React.MouseEvent
+      event: React.TouchEvent | React.MouseEvent,
     ) => void;
     const onPenEnd = this.props.onPenEnd as (
-      event: React.TouchEvent | React.MouseEvent
+      event: React.TouchEvent | React.MouseEvent,
     ) => void;
 
     if (isTopCardRevealed) {
       return (
         <>
-          <Header background="blue">{deckName}</Header>
+          <Header background="blue">{getDeckName(deck)}</Header>
           <HomeButton color="blue" onClick={onHome} />
           <canvas
             onTouchStart={
@@ -79,9 +81,9 @@ export default class WritingDrill extends React.Component<Props, State> {
             onTouchEnd={
               areWritingCorrectionsEnabled ? onPenEnd : onAffirmationSwipeEnd
             }
-            onMouseDown={areWritingCorrectionsEnabled ? onPenStart : NOOP}
-            onMouseMove={areWritingCorrectionsEnabled ? onPenMove : NOOP}
-            onMouseUp={areWritingCorrectionsEnabled ? onPenEnd : NOOP}
+            onMouseDown={areWritingCorrectionsEnabled ? onPenStart : noOp}
+            onMouseMove={areWritingCorrectionsEnabled ? onPenMove : noOp}
+            onMouseUp={areWritingCorrectionsEnabled ? onPenEnd : noOp}
             width={window.innerWidth}
             height={window.innerHeight * 0.62}
             ref={canvasRef}
@@ -93,7 +95,11 @@ export default class WritingDrill extends React.Component<Props, State> {
             onTouchEnd={onAffirmationSwipeEnd}
           >
             <div className="WritingDrill__Characters">
-              {remainingCards[0].characters}
+              <img
+                className="WritingDrill__StrokeOrderImage"
+                alt={remainingCards[0].romaji + " stroke order"}
+                src={remainingCards[0].image.src}
+              />
             </div>
           </div>
           <AffirmationSwipeIndicator
@@ -105,7 +111,7 @@ export default class WritingDrill extends React.Component<Props, State> {
     }
     return (
       <>
-        <Header background="blue">{deckName}</Header>
+        <Header background="blue">{getDeckName(deck)}</Header>
         <HomeButton color="blue" onClick={onHome} />
         <canvas
           onTouchStart={onPenStart}
@@ -117,8 +123,8 @@ export default class WritingDrill extends React.Component<Props, State> {
           height={window.innerHeight * 0.62}
           ref={canvasRef}
         />
-        <div className="WritingDrill__Pinyin" onClick={onReveal}>
-          {remainingCards[0].pinyin}
+        <div className="WritingDrill__Romaji" onClick={onReveal}>
+          {remainingCards[0].romaji}
         </div>
       </>
     );
@@ -127,12 +133,12 @@ export default class WritingDrill extends React.Component<Props, State> {
   componentDidMount() {
     this.props.canvasRef.current!.addEventListener(
       "touchmove",
-      (e) => {
+      e => {
         e.preventDefault();
       },
-      { passive: false }
+      { passive: false },
     );
   }
 }
 
-const NOOP = () => {};
+function noOp(): void {}

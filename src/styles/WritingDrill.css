@@ -1,4 +1,4 @@
-.WritingDrill__Pinyin {
+.WritingDrill__Romaji {
   text-align: center;
   font-size: 5vh;
   height: 27vh;
@@ -15,8 +15,6 @@
   color: #008;
 }
 
-.WritingDrill__Characters {
-  line-height: normal;
-  display: inline-block;
-  font-size: 10vh;
+.WritingDrill__StrokeOrderImage {
+  height: 27vh;
 }

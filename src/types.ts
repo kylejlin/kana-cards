@@ -1,44 +1,105 @@
-export interface AppState {
-  type: MenuType;
-  remainingCards: Card[];
-  deckName: string;
-  isTopCardRevealed: boolean;
-  selectedSwipeDirection: SwipeDirectionType;
-  normalizedDelta: number;
-  displayedDeckTypes: DisplayedDeckTypes;
-  areWritingCorrectionsEnabled: boolean;
-  deck: Deck;
-  cardsToRepractice: Card[];
-  startingTouch: null | { id: number; x?: number; y?: number };
+import { Set as ImmutableSet } from "immutable";
+
+export type AppState =
+  | DeckMenuState
+  | SettingsState
+  | CardMenuState
+  | WritingDrillState
+  | PostDrillMenuState;
+
+export enum StateType {
+  DeckMenu,
+  SettingsMenu,
+  CardMenu,
+  WritingDrill,
+  PostDrillMenu,
 }
 
-export type MenuType =
-  | "SETTINGS_MENU"
-  | "DECK_MENU"
-  | "DRILL_MENU"
-  | "READING_DRILL"
-  | "WRITING_DRILL";
+export interface AppStateMap {
+  [StateType.DeckMenu]: DeckMenuState;
+  [StateType.SettingsMenu]: SettingsState;
+  [StateType.CardMenu]: CardMenuState;
+  [StateType.WritingDrill]: WritingDrillState;
+  [StateType.PostDrillMenu]: PostDrillMenuState;
+}
 
-export type DrillType = "READING_DRILL" | "WRITING_DRILL";
+export interface DeckMenuState {
+  stateType: StateType.DeckMenu;
+}
 
-export type SwipeDirectionType = "Right" | "Left" | "Up" | "Down";
+export interface SettingsState {
+  stateType: StateType.SettingsMenu;
+  selectedSwipeDirection: SwipeDirection;
+  areWritingCorrectionsEnabled: boolean;
+}
 
-export type DeckType = "Phrases" | "Essentials";
+export interface CardMenuState {
+  stateType: StateType.CardMenu;
+  deck: Deck;
+  includedCategories: ImmutableSet<MoraCategory>;
+}
 
-export interface Deck {
-  readonly name: string;
-  readonly cards: Card[];
+export interface WritingDrillState {
+  stateType: StateType.WritingDrill;
+  deck: Deck;
+  initialCards: Card[];
+  remainingCards: Card[];
+  cardsToRepractice: Card[];
+  isTopCardRevealed: boolean;
+  areWritingCorrectionsEnabled: boolean;
+  selectedSwipeDirection: SwipeDirection;
+  startingTouch: { id: number; x?: number; y?: number } | undefined;
+  normalizedDelta: number;
+}
+
+export interface PostDrillMenuState {
+  stateType: StateType.PostDrillMenu;
+  deck: Deck;
+  initialCards: Card[];
+}
+
+export enum MoraCategory {
+  v,
+  Kv,
+  Sv,
+  Tv,
+  Nv,
+  Hv,
+  Mv,
+  Yv,
+  Rv,
+  Wv,
+  N,
+}
+
+export type Romaji<
+  S extends MoraCategory = MoraCategory
+> = typeof RomajiMap[S][number];
+
+export const RomajiMap = {
+  [MoraCategory.v]: ["a", "i", "u", "e", "o"],
+  [MoraCategory.Kv]: ["ka", "ki", "ku", "ke", "ko"],
+  [MoraCategory.Sv]: ["sa", "shi", "su", "se", "so"],
+  [MoraCategory.Tv]: ["ta", "chi", "tsu", "te", "to"],
+  [MoraCategory.Nv]: ["na", "ni", "nu", "ne", "no"],
+  [MoraCategory.Hv]: ["ha", "hi", "fu", "he", "ho"],
+  [MoraCategory.Mv]: ["ma", "mi", "mu", "me", "mo"],
+  [MoraCategory.Yv]: ["ya", "yu", "yo"],
+  [MoraCategory.Rv]: ["ra", "ri", "ru", "re", "ro"],
+  [MoraCategory.Wv]: ["wa", "wi", "we", "wo"],
+  [MoraCategory.N]: ["n"],
+} as const;
+
+export type SwipeDirection = "Right" | "Left" | "Up" | "Down";
+
+export enum Deck {
+  Hiragana,
+  Katakana,
 }
 
 export interface Card {
-  readonly characters: string;
-  readonly pinyin: string;
-  readonly meaning: string;
-}
-
-export interface DisplayedDeckTypes {
-  Phrases: boolean;
-  Essentials: boolean;
+  readonly romaji: string;
+  readonly image: HTMLImageElement;
 }
 
 export type PointerDownEvent = TouchStartEvent | MouseDownEvent;
@@ -70,3 +131,7 @@ export interface TouchEndEvent extends React.TouchEvent {
 export interface MouseUpEvent extends React.MouseEvent {
   type: "mouseup";
 }
+
+export type NestedPromiseArray<T> = (T | Promise<T> | NestedPromiseArray<T>)[];
+
+export type NestedArray<T> = (T | NestedArray<T>)[];
