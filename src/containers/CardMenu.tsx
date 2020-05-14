@@ -54,10 +54,17 @@ export default function CardMenu({
             </Checkbox>
           ))}
         </Section>
-        <Button modifierName="blue shadow" onClick={onDrillStart}>
+        <Button
+          modifierName={
+            (includedCategories.size === 0 ? "fadedBlue" : "blue") + " shadow"
+          }
+          onClick={includedCategories.size === 0 ? noOp : onDrillStart}
+        >
           Start
         </Button>
       </Body>
     </>
   );
 }
+
+function noOp(): void {}

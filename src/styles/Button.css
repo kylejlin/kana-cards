@@ -8,6 +8,11 @@
   color: #fff;
 }
 
+.Button--fadedBlue {
+  background-color: #3f3f8e;
+  color: #fffa;
+}
+
 .Button--shadow {
   box-shadow: 0 0 0.1em 0.1em #000a;
 }
