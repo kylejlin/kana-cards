@@ -1,6 +1,3 @@
-# Cards Against Illiteracy
+# Kana Cards
 
-[https://cardsagainstilliteracy.github.io/](https://cardsagainstilliteracy.github.io/)
-
-A digital substitute for flashcards.
-You can use these digital cards to study Chinese.
+An adaptation of [Cards Against Illiteracy](https://github.com/cardsagainstilliteracy/cardsagainstilliteracy.git) for learning hiragana and katakana.
