@@ -224,7 +224,7 @@ export default class CardsAgainstIlliteracy extends React.Component<
       deck,
       includedCategories:
         serializedCategorySet === null
-          ? ImmutableSet()
+          ? ImmutableSet([MoraCategory.v, MoraCategory.N])
           : categorySetUtils.parse(serializedCategorySet),
     };
     this.setState(updatedState);
