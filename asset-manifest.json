@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.c36758b9.chunk.css",
-    "main.js": "/static/js/main.1c6478cc.chunk.js",
-    "main.js.map": "/static/js/main.1c6478cc.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.563e6cc4.js",
-    "runtime-main.js.map": "/static/js/runtime-main.563e6cc4.js.map",
-    "static/js/2.c8991e02.chunk.js": "/static/js/2.c8991e02.chunk.js",
-    "static/js/2.c8991e02.chunk.js.map": "/static/js/2.c8991e02.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.f137f07838cb00b34060cc6f0cf1f26d.js": "/precache-manifest.f137f07838cb00b34060cc6f0cf1f26d.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.c36758b9.chunk.css.map": "/static/css/main.c36758b9.chunk.css.map",
-    "static/js/2.c8991e02.chunk.js.LICENSE.txt": "/static/js/2.c8991e02.chunk.js.LICENSE.txt",
-    "static/media/hiragana_stroke_order.png": "/static/media/hiragana_stroke_order.e82e3b7c.png",
-    "static/media/katakana_stroke_order.png": "/static/media/katakana_stroke_order.b38bd4cd.png",
-    "static/media/settings.svg": "/static/media/settings.5f70f755.svg"
+    "main.css": "/kana-cards/static/css/main.c36758b9.chunk.css",
+    "main.js": "/kana-cards/static/js/main.224a1462.chunk.js",
+    "main.js.map": "/kana-cards/static/js/main.224a1462.chunk.js.map",
+    "runtime-main.js": "/kana-cards/static/js/runtime-main.e42c5f3b.js",
+    "runtime-main.js.map": "/kana-cards/static/js/runtime-main.e42c5f3b.js.map",
+    "static/js/2.310f0cd4.chunk.js": "/kana-cards/static/js/2.310f0cd4.chunk.js",
+    "static/js/2.310f0cd4.chunk.js.map": "/kana-cards/static/js/2.310f0cd4.chunk.js.map",
+    "index.html": "/kana-cards/index.html",
+    "precache-manifest.cb9c7f715357a6ab10ab2e10aaca7bb8.js": "/kana-cards/precache-manifest.cb9c7f715357a6ab10ab2e10aaca7bb8.js",
+    "service-worker.js": "/kana-cards/service-worker.js",
+    "static/css/main.c36758b9.chunk.css.map": "/kana-cards/static/css/main.c36758b9.chunk.css.map",
+    "static/js/2.310f0cd4.chunk.js.LICENSE.txt": "/kana-cards/static/js/2.310f0cd4.chunk.js.LICENSE.txt",
+    "static/media/hiragana_stroke_order.png": "/kana-cards/static/media/hiragana_stroke_order.e82e3b7c.png",
+    "static/media/katakana_stroke_order.png": "/kana-cards/static/media/katakana_stroke_order.b38bd4cd.png",
+    "static/media/settings.svg": "/kana-cards/static/media/settings.5f70f755.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.563e6cc4.js",
-    "static/js/2.c8991e02.chunk.js",
+    "static/js/runtime-main.e42c5f3b.js",
+    "static/js/2.310f0cd4.chunk.js",
     "static/css/main.c36758b9.chunk.css",
-    "static/js/main.1c6478cc.chunk.js"
+    "static/js/main.224a1462.chunk.js"
   ]
 }
