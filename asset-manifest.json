@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/kana-cards/static/css/main.c36758b9.chunk.css",
-    "main.js": "/kana-cards/static/js/main.224a1462.chunk.js",
-    "main.js.map": "/kana-cards/static/js/main.224a1462.chunk.js.map",
+    "main.css": "/kana-cards/static/css/main.10a1f057.chunk.css",
+    "main.js": "/kana-cards/static/js/main.84b835c0.chunk.js",
+    "main.js.map": "/kana-cards/static/js/main.84b835c0.chunk.js.map",
     "runtime-main.js": "/kana-cards/static/js/runtime-main.e42c5f3b.js",
     "runtime-main.js.map": "/kana-cards/static/js/runtime-main.e42c5f3b.js.map",
     "static/js/2.310f0cd4.chunk.js": "/kana-cards/static/js/2.310f0cd4.chunk.js",
     "static/js/2.310f0cd4.chunk.js.map": "/kana-cards/static/js/2.310f0cd4.chunk.js.map",
     "index.html": "/kana-cards/index.html",
-    "precache-manifest.cb9c7f715357a6ab10ab2e10aaca7bb8.js": "/kana-cards/precache-manifest.cb9c7f715357a6ab10ab2e10aaca7bb8.js",
+    "precache-manifest.0586024cee6c7e84f84d49616db379fb.js": "/kana-cards/precache-manifest.0586024cee6c7e84f84d49616db379fb.js",
     "service-worker.js": "/kana-cards/service-worker.js",
-    "static/css/main.c36758b9.chunk.css.map": "/kana-cards/static/css/main.c36758b9.chunk.css.map",
+    "static/css/main.10a1f057.chunk.css.map": "/kana-cards/static/css/main.10a1f057.chunk.css.map",
     "static/js/2.310f0cd4.chunk.js.LICENSE.txt": "/kana-cards/static/js/2.310f0cd4.chunk.js.LICENSE.txt",
     "static/media/hiragana_stroke_order.png": "/kana-cards/static/media/hiragana_stroke_order.e82e3b7c.png",
     "static/media/katakana_stroke_order.png": "/kana-cards/static/media/katakana_stroke_order.b38bd4cd.png",
@@ -19,7 +19,7 @@
   "entrypoints": [
     "static/js/runtime-main.e42c5f3b.js",
     "static/js/2.310f0cd4.chunk.js",
-    "static/css/main.c36758b9.chunk.css",
-    "static/js/main.224a1462.chunk.js"
+    "static/css/main.10a1f057.chunk.css",
+    "static/js/main.84b835c0.chunk.js"
   ]
 }

@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0e77536baa41108eaf371fc70719c57e",
+    "revision": "2ab6ab77afa76affb67b0ce0ce9ac6a3",
     "url": "/kana-cards/index.html"
   },
   {
-    "revision": "e6c65e70afd55b6653c4",
-    "url": "/kana-cards/static/css/main.c36758b9.chunk.css"
+    "revision": "5b34933d087eceb6556c",
+    "url": "/kana-cards/static/css/main.10a1f057.chunk.css"
   },
   {
     "revision": "2b06e381f3a8dc650ff4",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/kana-cards/static/js/2.310f0cd4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e6c65e70afd55b6653c4",
-    "url": "/kana-cards/static/js/main.224a1462.chunk.js"
+    "revision": "5b34933d087eceb6556c",
+    "url": "/kana-cards/static/js/main.84b835c0.chunk.js"
   },
   {
     "revision": "5da5f90d6e37bd465b68",
