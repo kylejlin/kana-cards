@@ -1,6 +1,6 @@
 {
-  "name": "cards-against-illiteracy",
-  "homepage": "https://cardsagainstilliteracy.github.io",
+  "name": "kana-cards",
+  "homepage": "https://kylejlin.github.io/kana-cards",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -28,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages --repo \"https://github.com/cardsagainstilliteracy/cardsagainstilliteracy.github.io.git\" -b master -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
