@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2ab6ab77afa76affb67b0ce0ce9ac6a3",
+    "revision": "cb15f9fe9bef2902964097941dc5fcb7",
     "url": "/kana-cards/index.html"
   },
   {
